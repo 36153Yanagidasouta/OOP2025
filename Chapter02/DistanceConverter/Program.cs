@@ -16,9 +16,7 @@ namespace DistanceConverter {
             }
         }
 
-        private static void MeterToFeet(int v1, int v2) {
-            throw new NotImplementedException();
-        }
+        
 
         static void FeetToMeter(int start,int stop) {
             for (int feet = start; feet <= stop; feet++) {

@@ -3,6 +3,9 @@ using System.Runtime.CompilerServices;
 
 namespace ProductSample {
     internal class Program {
+
+        //
+
         static void Main(string[] args) {
 
             Product karinto = new Product(123, "かりんとう", 180);

@@ -7,12 +7,7 @@ namespace DistanceConverter {
 
 
         static void Main(string[] args) {
-            //20億の2乗人
-            for (int i = 0; i < int.MaxValue; i++) {
-                for (int j = 0; j < int.MaxValue; j++) {
-                    Console.WriteLine("やなぎだ参上！！");
-                }
-            }
+
             int start = int.Parse(args[1]);
             int end = int.Parse(args[2]);
 
@@ -25,10 +20,10 @@ namespace DistanceConverter {
         }
 
         private static void PrintMeterToFeetList(int start, int end) {
-            for (int meter = start; meter <= end; meter++) {
-                double feet = FeetConverter.MeterToFeet(meter);
-                Console.WriteLine($"{meter}m = {feet:0.0000}ft");
-            }
+            for (int meter = start; meter <= end; meter++) { 
+            double feet = FeetConverter.MeterToFeet(meter);
+            Console.WriteLine($"{meter}m = {feet:0.0000}ft");
+                }
         }
 
         private static void PrintFeetToMeterList(int start, int end) {

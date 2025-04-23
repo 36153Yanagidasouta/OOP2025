@@ -11,5 +11,10 @@ namespace Exercise02 {
             return meter * 0.0254;
         }
 
+        public double MeterToInch(double inch) {
+            return inch / 0.0254;
+
+        }
+
     }
 }

@@ -14,17 +14,17 @@ namespace DistanceConverter {
             if (args.Length >= 0 && args[0] == "-tom") {
                 PrintFeetToMeterList(start, end);
             } else {
-                PrintMeterToFeetList(start, end);
+ //               PrintMeterToFeetList(start, end);
 
             }
         }
 
-        private static void PrintMeterToFeetList(int start, int end) {
+/*        private static void PrintMeterToFeetList(int start, int end) {
             for (int meter = start; meter <= end; meter++) { 
             double feet = FeetConverter.MeterToFeet(meter);
             Console.WriteLine($"{meter}m = {feet:0.0000}ft");
                 }
-        }
+        }*/
 
         private static void PrintFeetToMeterList(int start, int end) {
 

@@ -7,15 +7,15 @@ namespace Exercise02 {
         static void Main(string[] args) {
 
 
-            Console.WriteLine("変換アプリ;");
-            int hantei = int.Parse(Console.ReadLine());
+            Console.WriteLine("ヤード&メートル変換アプリ;");
+            int h = int.Parse(Console.ReadLine());
 
-            if (hantei == 1) {
+            if (h == 1) {
                 Console.Write("はじめ：");
                 int start = int.Parse(Console.ReadLine());
                 Console.Write("終わり：");
                 int end = int.Parse(Console.ReadLine());
-                PrintInchtToMeter(start, end);
+                PrintYardToMeter(start, end);
             } else {
                 Console.Write("はじめ：");
                 double start = double.Parse(Console.ReadLine());
@@ -27,13 +27,13 @@ namespace Exercise02 {
             }
         }
 
-        public static void PrintInchtToMeter(int start, int end) {
+        public static void PrintYardToMeter(int start, int end) {
 
             InchConverter converter = new InchConverter();
 
-            for (int inch = start; inch <= end; inch++) {
-                double meter = converter.InchtToMeter(inch);
-                Console.WriteLine($"{inch}inch = {meter:0.0000}m");
+            for (double yard = start; yard <= end; yard++) {
+                double meter = converter.InchtToMeter(yard);
+                Console.WriteLine($"{yard}inch = {meter:0.0000}m");
             }
         }
         public static void PrintMerterToInch(double start, double end) {

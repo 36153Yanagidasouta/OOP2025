@@ -8,11 +8,11 @@ namespace Exercise02 {
     class InchConverter {
 
         public double InchtToMeter(double meter) {
-            return meter * 0.0254;
+            return meter * 1.09361;
         }
 
-        public double MeterToInch(double inch) {
-            return inch / 0.0254;
+        public double MeterToInch(double yard) {
+            return yard / 1.09361;
 
         }
 

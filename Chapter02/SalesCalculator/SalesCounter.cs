@@ -12,9 +12,9 @@ namespace SalesCalculator{
         private readonly List<Sale> _sales;
 
         //コンスト
-        public SalesCounter(List<Sale> sales) {
+        public SalesCounter(string filePath) {
 
-            _sales = sales;
+           _sales = ReadSales(filePath);
 
         }
 

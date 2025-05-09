@@ -9,7 +9,7 @@ namespace SalesCalculator{
     //売り上げ集計クラス
     public class SalesCounter {
 
-        private readonly List<Sale> _sales;
+        private readonly　IEnumerable<Sale> _sales;
 
         //コンスト
         public SalesCounter(string filePath) {
@@ -20,7 +20,7 @@ namespace SalesCalculator{
 
         //店舗別売り上げを求める 
 
-        public Dictionary<string, int> GetPerStoreSales() {
+        public IDictionary<string, int> GetPerStoreSales() {
 
             Dictionary<string, int> dict = new Dictionary<string, int>();
             foreach (Sale sale in _sales) {
@@ -35,7 +35,7 @@ namespace SalesCalculator{
                
 
         //売り上げデータ読み込み、Saleオブジェクトのリストを返す
-        public static List<Sale> ReadSales(string filePath) {
+        public static IEnumerable<Sale> ReadSales(string filePath) {
 
             //売り上げデーターを入れるリストオブジェクトを生成
             List<Sale> sales = new List<Sale>();

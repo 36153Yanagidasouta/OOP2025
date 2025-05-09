@@ -38,16 +38,16 @@ namespace SalesCalculator{
         public static IEnumerable<Sale> ReadSales(string filePath) {
 
             //売り上げデーターを入れるリストオブジェクトを生成
-            List<Sale> sales = new List<Sale>();
+            var sales = new List<Sale>();
 
             //ファイルを一気に読み込み
-            string[] lines = File.ReadAllLines(filePath);
+            var lines = File.ReadAllLines(filePath);
 
             //一回ずつ文字列を持ってくる
             foreach (string line in lines) {
 
 
-                string[] items = line.Split(',');
+                var items = line.Split(',');
 
                 //Saleオブジェクトを生成
                 Sale sale = new Sale() {

@@ -8,10 +8,14 @@ namespace Exercise01{
     //2-1の1
    public class Song{
 
-    
+        String Title;
 
+        String ArtistName;
 
-
+        int Length;
 
     }
+
+    
+
 }

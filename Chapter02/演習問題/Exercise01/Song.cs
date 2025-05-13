@@ -18,8 +18,11 @@ namespace Exercise01 {
     //2-1の2
         public Song(String Title, String ArtistName, int Lenght) {
 
+            this.Title = Title;
+            
+            this.ArtistName = ArtistName;
 
-
+            this.Lenght = Lenght;
 
 
         }

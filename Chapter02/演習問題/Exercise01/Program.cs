@@ -15,7 +15,7 @@ namespace Exercise01 {
                 Console.WriteLine("曲名");
                 string title = Console.ReadLine();
 
-                if (title.Equals("end")) return;
+                if (title.Equals("end")) break;
 
                 Console.WriteLine("作者名");
                 string artistname = Console.ReadLine();
@@ -36,14 +36,14 @@ namespace Exercise01 {
 
             }
 
-            printSongs();
+            printSongs(songs);
         }
 
 
         //2-1の4
-        public static void printSongs(songs) {
+        public static void printSongs(List<Song> songs ) {
 
-            foreach (var song in songs) {
+            foreach (var song in songs ) {
 
                 var minutes = song.Lenght / 60;
                 var second = song.Lenght % 60;

@@ -5,26 +5,21 @@
 
         static void Main(string[] args) {
 
-            //Console.WriteLine("カウントしたい数値 :");
-            //int num = int.Parse(Console.ReadLine());
+            var cities = new List<string> {
+                "Tokyo",
+                "New Delhi",
+                "Bangkok",
+                "London",
+                "Paris",
+                "Berlin",
+                "Canberra",
+                "Hong Kong",
+            };
 
-            var numbers = new[] { 5, 3, 9, 6, 7, 5, 8, 1, 0, 5, 10, 4 };
+            var lowerList = cities.ConvertAll(s => s.ToUpper());
+            lowerList.ForEach(s => Console.WriteLine(s));
 
 
-            Console.WriteLine(Count(numbers, n => 5 <= n && n <= 10　));
-        }
-
-       
-        public static int Count(int[] numbers, Func<int, bool> judge) {
-            
-            var count = 0;
-            foreach (var n in numbers) {
-                //引数で受け取ったメソッドを呼び出す
-                if (judge(n) == true) {
-                    count++;
-                }
-            }
-            return count;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace ConsoleApp1 {
             Exercise2(numbers);
             Console.WriteLine("-----");
 
-            // 3.1.3
+            // 3.1.30
             Exercise3(numbers);
             Console.WriteLine("-----");
 
@@ -24,7 +24,7 @@ namespace ConsoleApp1 {
             Exercise4(numbers);
 
         }
-        
+
         //３－１
         private static void Exercise1(List<int> numbers) {
 
@@ -35,33 +35,27 @@ namespace ConsoleApp1 {
                 Console.WriteLine("存在しない");
             }
         }
-        
+
         //３－２
         private static void Exercise2(List<int> numbers) {
 
             numbers.ForEach(s => Console.WriteLine(s / 2.0));
         }
-        
+
         //３－３
         private static void Exercise3(List<int> numbers) {
 
-            var quary = numbers.Where(s => s >= 50);
+            numbers.Where(n => n > 50).ToList().ForEach(Console.WriteLine);
 
-            foreach (var number in quary) {
-                Console.WriteLine(number);
-            }
+            //foreach (var num in numbers.Where(n => n >= 50)) {
+            //    Console.WriteLine(num);
+            //}
         }
-        
+
         //３－４
         private static void Exercise4(List<int> numbers) {
 
-            List<int> selected = numbers.Select(s => s * 2).ToList();
-
-            foreach (var number in selected) {
-                Console.WriteLine(number);
-
-            }
-            ;
+            numbers.Select(s => s * 2).ToList().ForEach(Console.WriteLine);
         }
     }
 }

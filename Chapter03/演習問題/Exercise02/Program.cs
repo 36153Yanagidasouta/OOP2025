@@ -56,7 +56,7 @@ namespace Exercise02 {
 
         private static void Exercise2_3(List<string> names) {
 
-            IEnumerable<string> query = names;
+            
             var selected = names.Where(s => s.Contains('o')).ToArray();
             foreach (var name in selected) {
                 Console.WriteLine(name);

@@ -60,7 +60,7 @@ namespace Exercise01 {
 
         private static void Exercise5(int[] numbers) {
 
-            var count = numbers.Distinct().ToList().Where(s => s > 10).Count();
+            var count = numbers.Distinct().Count(s => s > 10);
             Console.WriteLine(count);
         }
     }

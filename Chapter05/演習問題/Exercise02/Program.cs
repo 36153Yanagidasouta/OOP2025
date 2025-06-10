@@ -40,22 +40,35 @@ namespace Exercise02 {
 
         private static YearMonth? FindFirst21C(YearMonth[] ymCollection) {
             foreach (var n in ymCollection) {
-                if (n.Is21Century == true) {
-                    return null ;
-                } else {
-                    return null;
+                if (n.Is21Century) {
+                    return n;
                 }
             }
+            return null;
         }
 
         // 5.2.4
         private static void Exercise4(YearMonth[] ymCollection) {
+            // var ym = FindFirst21C(ymCollection);
 
+            // if(ym == null) {
+            //        Console.WriteLine("21世紀のデータは見つかりません");
+            //    } else {
+            //        Console.WriteLine( ym );
+            //    }
+            //}
+            var yearMonth = FindFirst21C(ymCollection);
+            var str = yearMonth?.ToString() ?? "21世紀のデータはありません";
+            Console.WriteLine(str);
+
+            Console.WriteLine(FindFirst21C(ymCollection)?.ToString() ?? "21世紀のデータはありません");
         }
+
 
         // 5.2.5
         private static void Exercise5(YearMonth[] ymCollection) {
-
+            var array = ymCollection.Select(s => s.AddOneMonth()).ToArray();
+            Console.WriteLine(array);
         }
     }
 }

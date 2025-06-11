@@ -36,7 +36,7 @@ namespace Exercise01 {
         }
 
         private static void Exercise2(string text) {
-            var textDict = new Dictionary<char, int>();
+            var textDict = new SortedDictionary<char, int>();
 
             foreach (var n in text.ToUpper()) {
                 if ('A' <= n && n <= 'Z') {

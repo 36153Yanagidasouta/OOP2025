@@ -1,5 +1,7 @@
 ﻿
 
+using static System.Net.Mime.MediaTypeNames;
+
 namespace Test02 {
     internal class Program {
         static void Main(string[] args) {
@@ -73,28 +75,32 @@ namespace Test02 {
         //問題３　昇順に並べて表示（遅延実行とする）
         //　　　　出力結果【12 14 17 20 31 35 40 48 53 76 87 91 94】
         private static void Exercise03(int[] numbers) {
-            
+
+            foreach (int number in numbers.Order()) {
+                Console.WriteLine(number);
+            }
 
         }
 
         //問題４　10以上50以下の数字のみを表示（即時実行でも可とする）
         //　　　　出力結果【12 14 20 40 35 31 17 48】
         private static void Exercise04(int[] numbers) {
-            
-
+            foreach (int number in numbers.Where(s => s <= 10 || 50 >= s)) {
+                Console.WriteLine(number);
+            }
         }
 
         //問題５　Countメソッドを使い、小文字の'n'が含まれている都市名がいくつあるかカウントして結果を表示
         //　　　　出力結果【5】
         private static void Exercise05(List<string> cities) {
-            
 
+            Console.WriteLine(cities.Count(s => s.Contains('n')));
         }
 
         //問題６　全都市数
         //　　　　出力結果【8】
         private static void Exercise06(List<string> cities) {
-            
+            Console.WriteLine(cities.Count);
 
         }
 
@@ -109,8 +115,11 @@ namespace Test02 {
         //          Paris
         //          Tokyo】
         private static void Exercise07(List<string> cities) {
-            
+            var textDict = new Dictionary<string,string>();
 
+            foreach (var n in cities.OrderBy(n => n)) {
+                Console.WriteLine(n);
+            }
         }
 
         //問題８　各都市の文字数
@@ -123,8 +132,9 @@ namespace Test02 {
         //　　　　  Berlin : 6文字
         //　　　　  Canberra : 8文字
         //　　　　  Hong Kong : 9文字】
+
         private static void Exercise08(List<string> cities) {
-            
+
 
 
 
@@ -141,7 +151,7 @@ namespace Test02 {
         //          New Delhi : 9文字
         //          Hong Kong : 9文字】
         private static void Exercise09(List<string> cities) {
-            
+
 
 
 
@@ -152,7 +162,7 @@ namespace Test02 {
         //        【London
         //          Berlin】
         private static void Exercise10(List<string> cities) {
-            
+
 
 
         }

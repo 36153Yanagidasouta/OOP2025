@@ -31,10 +31,11 @@ namespace Exercise01 {
 
             var culture = new CultureInfo("ja-JP");
             culture.DateTimeFormat.Calendar = new JapaneseCalendar();
-            var str = today.ToString("ggyy年M月d日", culture);
+            var datestr = today.ToString("ggyy", culture);
             var dayofweek = culture.DateTimeFormat.GetDayName(today.DayOfWeek);
 
-            Console.WriteLine($"{str}({dayofweek})");
+            var str = string.Format($"{datestr}年{dateTime.Month,2}年{dateTime.Day,2}日({dayofweek})");
+            Console.WriteLine(str);
 
         }
     }

@@ -31,7 +31,7 @@ namespace Exercise01 {
 
             var culture = new CultureInfo("ja-JP");
             culture.DateTimeFormat.Calendar = new JapaneseCalendar();
-            var datestr = today.ToString("ggyy", culture);
+            var datestr = today.ToString("ggy", culture);
             var dayofweek = culture.DateTimeFormat.GetDayName(today.DayOfWeek);
 
             var str = string.Format($"{datestr}年{dateTime.Month,2}年{dateTime.Day,2}日({dayofweek})");

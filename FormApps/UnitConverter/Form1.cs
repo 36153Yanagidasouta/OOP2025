@@ -17,5 +17,9 @@ namespace UnitConverter {
 
 
         }
+
+        private void tbBeforeConversion_TextChanged(object sender, EventArgs e) {
+
+        }
     }
 }

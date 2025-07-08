@@ -46,6 +46,7 @@
             tbBeforeConversion.Name = "tbBeforeConversion";
             tbBeforeConversion.Size = new Size(155, 31);
             tbBeforeConversion.TabIndex = 1;
+            tbBeforeConversion.TextChanged += tbBeforeConversion_TextChanged;
             // 
             // tbAfterConversion
             // 

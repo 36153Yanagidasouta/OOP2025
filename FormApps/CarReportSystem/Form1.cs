@@ -13,7 +13,7 @@ namespace CarReportSystem {
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
 
         //設定クラスのインスタンスを生成
-        Settings settings = new Settings();
+        Settings settings = Settings.getInstance();
 
 
         public Form1() {
@@ -160,18 +160,24 @@ namespace CarReportSystem {
 
             //設定ファイルを読み込み背景色を作成
             //P286以降を参考にする(ファイル名setting.XML)
+            //逆シリアル化
 
-
-
-            if (File.Exists(settingFilePath)) {
-                using (var reader = XmlReader.Create(settingFilePath)) { //settings.XMLをOOP2025から読むじゃん
-                    var serializer = new XmlSerializer(typeof(Settings));
-                    var settingData = serializer.Deserialize(reader) as Settings; //読んできたデータをsettingDataに入れる
-                    settings = settingData ?? new Settings();   //settingsにsettingDataを入れる時にnullかもしれないから??とnullだった場合の処理を入れる
-                    this.BackColor = Color.FromArgb(settings.MainFormBackColor);　//BackColorとsettingsの型を合わせるて完成
-                    //C:\Users\infosys\source\repos\OOP2025\FormApps\CarReportSystem\bin\Debug\net8.0-windows
+            try {
+                //if (File.Exists(settingFilePath)) {
+                    using (var reader = XmlReader.Create(settingFilePath)) { //settings.XMLをOOP2025から読むじゃん
+                        var serializer = new XmlSerializer(typeof(Settings));
+                        var settingData = serializer.Deserialize(reader) as Settings; //読んできたデータをsettingDataに入れる
+                        settings = settingData ?? Settings.getInstance();   //settingsにsettingDataを入れる時にnullかもしれないから??とnullだった場合の処理を入れる
+                        this.BackColor = Color.FromArgb(settings.MainFormBackColor); //BackColorとsettingsの型を合わせるて完成
+                        //設定クラスのインスタンスにも現在の設定色を設定  //C:\Users\infosys\source\repos\OOP2025\FormApps\CarReportSystem\bin\Debug\net8.0-windows
+                        settings.MainFormBackColor = BackColor.ToArgb();                   
                 }
             }
+            catch (Exception ex) {
+                tsslbMessage.Text = "データなし";
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void btRecordModify_Click(object sender, EventArgs e) {

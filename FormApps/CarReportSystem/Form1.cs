@@ -3,12 +3,18 @@ using System.ComponentModel;
 using System.Drawing.Text;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 using static CarReportSystem.CarReport;
 
 namespace CarReportSystem {
     public partial class Form1 : Form {
         //カーレポート管理用リスト
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
+
+        //設定クラスのインスタンスを生成
+        Settings settings = new Settings();
+
 
         public Form1() {
             InitializeComponent();
@@ -145,10 +151,27 @@ namespace CarReportSystem {
             listCarReports.RemoveAt(index);
         }
 
+        private const string settingFilePath = "setting.xml";
+
+
         private void Form1_Load(object sender, EventArgs e) {
 
             dgvRecord.AlternatingRowsDefaultCellStyle.BackColor = Color.Red;
 
+            //設定ファイルを読み込み背景色を作成
+            //P286以降を参考にする(ファイル名setting.XML)
+
+
+
+            if (File.Exists(settingFilePath)) {
+                using (var reader = XmlReader.Create(settingFilePath)) { //settings.XMLをOOP2025から読むじゃん
+                    var serializer = new XmlSerializer(typeof(Settings));
+                    var settingData = serializer.Deserialize(reader) as Settings; //読んできたデータをsettingDataに入れる
+                    settings = settingData ?? new Settings();   //settingsにsettingDataを入れる時にnullかもしれないから??とnullだった場合の処理を入れる
+                    this.BackColor = Color.FromArgb(settings.MainFormBackColor);　//BackColorとsettingsの型を合わせるて完成
+                    //C:\Users\infosys\source\repos\OOP2025\FormApps\CarReportSystem\bin\Debug\net8.0-windows
+                }
+            }
         }
 
         private void btRecordModify_Click(object sender, EventArgs e) {
@@ -194,8 +217,10 @@ namespace CarReportSystem {
 
             if (cdColor.ShowDialog() == DialogResult.OK) {
                 BackColor = cdColor.Color;
-            }
+                //設定ファイルへ保存
+                settings.MainFormBackColor = cdColor.Color.ToArgb(); //背景色を設定インスタンスへ設定
 
+            }
         }
 
         //ファイルオープン処理
@@ -264,6 +289,16 @@ namespace CarReportSystem {
             reportOpenfile();
 
 
+        }
+
+        //フォームが閉じたら呼ばれる
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+            //設定ファイルへ色情報を保存する処理(シリアル化)
+
+            using (var writer = XmlWriter.Create(settingFilePath)) { //シリアル化するじゃん
+                var serializer = new XmlSerializer(settings.GetType());
+                serializer.Serialize(writer, settings);
+            }
         }
     }
 }

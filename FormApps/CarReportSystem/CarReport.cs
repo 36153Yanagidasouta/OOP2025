@@ -31,5 +31,6 @@ namespace CarReportSystem {
         //[System.ComponentModel.Browsable(false)]
         public Image? Picture { get; set; }//画像
 
+
     }
 }

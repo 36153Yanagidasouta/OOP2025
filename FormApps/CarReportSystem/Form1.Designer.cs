@@ -385,44 +385,44 @@
             // ファイルFToolStripMenuItem1
             // 
             ファイルFToolStripMenuItem1.Name = "ファイルFToolStripMenuItem1";
-            ファイルFToolStripMenuItem1.Size = new Size(180, 22);
+            ファイルFToolStripMenuItem1.Size = new Size(140, 22);
             ファイルFToolStripMenuItem1.Text = "ファイル(&F)";
             ファイルFToolStripMenuItem1.Click += ファイルFToolStripMenuItem1_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(137, 6);
             // 
             // 保存ToolStripMenuItem
             // 
             保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
-            保存ToolStripMenuItem.Size = new Size(180, 22);
+            保存ToolStripMenuItem.Size = new Size(140, 22);
             保存ToolStripMenuItem.Text = "保存...";
             保存ToolStripMenuItem.Click += 保存ToolStripMenuItem_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(177, 6);
+            toolStripSeparator2.Size = new Size(137, 6);
             // 
             // 色設定ToolStripMenuItem
             // 
             色設定ToolStripMenuItem.Name = "色設定ToolStripMenuItem";
-            色設定ToolStripMenuItem.Size = new Size(180, 22);
+            色設定ToolStripMenuItem.Size = new Size(140, 22);
             色設定ToolStripMenuItem.Text = "色設定...";
             色設定ToolStripMenuItem.Click += 色設定ToolStripMenuItem_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(177, 6);
+            toolStripSeparator3.Size = new Size(137, 6);
             // 
             // tsmiExit
             // 
             tsmiExit.Name = "tsmiExit";
             tsmiExit.ShortcutKeys = Keys.Alt | Keys.F4;
-            tsmiExit.Size = new Size(180, 22);
+            tsmiExit.Size = new Size(140, 22);
             tsmiExit.Text = "終了";
             tsmiExit.Click += tsmiExit_Click;
             // 
@@ -436,7 +436,7 @@
             // tsmiAbout
             // 
             tsmiAbout.Name = "tsmiAbout";
-            tsmiAbout.Size = new Size(180, 22);
+            tsmiAbout.Size = new Size(164, 22);
             tsmiAbout.Text = "このアプリについて...";
             tsmiAbout.Click += tsmiAbout_Click;
             // 
@@ -473,6 +473,7 @@
             Controls.Add(label1);
             MainMenuStrip = menuStrip1;
             Name = "Form1";
+            FormClosed += Form1_FormClosed;
             Load += Form1_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();

@@ -80,12 +80,11 @@ namespace Exercise01 {
 
             };
 
-            var text = File.ReadAllText("./product.json ");
-            var empfile = JsonSerializer.Deserialize<Employee[]>(text);
+            var text = File.ReadAllText(filePath);
+            var empfile = JsonSerializer.Deserialize<Employee[]>(text, options);
+            return empfile ?? [] ;
 
-            return empfile ; 
-             
-                
+
         }
 
     }

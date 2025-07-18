@@ -26,20 +26,16 @@
             textboxUrl = new TextBox();
             btRssGet = new Button();
             listboxTitles = new ListBox();
-            webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
-            button1 = new Button();
-            button2 = new Button();
-            ((System.ComponentModel.ISupportInitialize)webView21).BeginInit();
             SuspendLayout();
             // 
             // textboxUrl
             // 
             textboxUrl.BackColor = SystemColors.ActiveCaptionText;
             textboxUrl.ForeColor = Color.LawnGreen;
-            textboxUrl.Location = new Point(160, 12);
+            textboxUrl.Location = new Point(37, 12);
             textboxUrl.Multiline = true;
             textboxUrl.Name = "textboxUrl";
-            textboxUrl.Size = new Size(493, 59);
+            textboxUrl.Size = new Size(611, 59);
             textboxUrl.TabIndex = 0;
             // 
             // btRssGet
@@ -47,7 +43,7 @@
             btRssGet.BackColor = SystemColors.ActiveCaptionText;
             btRssGet.Font = new Font("Yu Gothic UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 128);
             btRssGet.ForeColor = Color.LawnGreen;
-            btRssGet.Location = new Point(695, 12);
+            btRssGet.Location = new Point(675, 12);
             btRssGet.Name = "btRssGet";
             btRssGet.Size = new Size(86, 59);
             btRssGet.TabIndex = 1;
@@ -64,62 +60,23 @@
             listboxTitles.ForeColor = Color.LawnGreen;
             listboxTitles.FormattingEnabled = true;
             listboxTitles.ItemHeight = 21;
-            listboxTitles.Location = new Point(37, 104);
+            listboxTitles.Location = new Point(37, 90);
             listboxTitles.Name = "listboxTitles";
-            listboxTitles.Size = new Size(692, 214);
+            listboxTitles.Size = new Size(724, 466);
             listboxTitles.TabIndex = 2;
-            listboxTitles.Click += listboxTitles_Click;
-            // 
-            // webView21
-            // 
-            webView21.AllowExternalDrop = true;
-            webView21.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            webView21.BackColor = SystemColors.ControlLight;
-            webView21.CreationProperties = null;
-            webView21.DefaultBackgroundColor = Color.White;
-            webView21.ForeColor = SystemColors.ActiveCaptionText;
-            webView21.Location = new Point(37, 353);
-            webView21.Name = "webView21";
-            webView21.Size = new Size(692, 225);
-            webView21.TabIndex = 3;
-            webView21.ZoomFactor = 1D;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(12, 16);
-            button1.Name = "button1";
-            button1.Size = new Size(64, 55);
-            button1.TabIndex = 4;
-            button1.Text = "戻る";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(82, 14);
-            button2.Name = "button2";
-            button2.Size = new Size(72, 57);
-            button2.TabIndex = 5;
-            button2.Text = "進む";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ControlLightLight;
+            BackColor = SystemColors.InactiveCaptionText;
             ClientSize = new Size(819, 621);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(webView21);
             Controls.Add(listboxTitles);
             Controls.Add(btRssGet);
             Controls.Add(textboxUrl);
             ForeColor = SystemColors.ActiveCaptionText;
             Name = "Form1";
             Text = "RSSリーダー";
-            ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -129,8 +86,5 @@
         private TextBox textboxUrl;
         private Button btRssGet;
         private ListBox listboxTitles;
-        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
-        private Button button1;
-        private Button button2;
     }
 }

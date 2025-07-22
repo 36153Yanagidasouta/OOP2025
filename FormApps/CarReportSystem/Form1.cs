@@ -164,13 +164,13 @@ namespace CarReportSystem {
 
             try {
                 //if (File.Exists(settingFilePath)) {
-                    using (var reader = XmlReader.Create(settingFilePath)) { //settings.XMLをOOP2025から読むじゃん
-                        var serializer = new XmlSerializer(typeof(Settings));
-                        var settingData = serializer.Deserialize(reader) as Settings; //読んできたデータをsettingDataに入れる
-                        settings = settingData ?? Settings.getInstance();   //settingsにsettingDataを入れる時にnullかもしれないから??とnullだった場合の処理を入れる
-                        this.BackColor = Color.FromArgb(settings.MainFormBackColor); //BackColorとsettingsの型を合わせるて完成
-                        //設定クラスのインスタンスにも現在の設定色を設定  //C:\Users\infosys\source\repos\OOP2025\FormApps\CarReportSystem\bin\Debug\net8.0-windows
-                        settings.MainFormBackColor = BackColor.ToArgb();                   
+                using (var reader = XmlReader.Create(settingFilePath)) { //settings.XMLをOOP2025から読むじゃん
+                    var serializer = new XmlSerializer(typeof(Settings));
+                    var settingData = serializer.Deserialize(reader) as Settings; //読んできたデータをsettingDataに入れる
+                    settings = settingData ?? Settings.getInstance();   //settingsにsettingDataを入れる時にnullかもしれないから??とnullだった場合の処理を入れる
+                    this.BackColor = Color.FromArgb(settings.MainFormBackColor); //BackColorとsettingsの型を合わせるて完成
+                                                                                 //設定クラスのインスタンスにも現在の設定色を設定  //C:\Users\infosys\source\repos\OOP2025\FormApps\CarReportSystem\bin\Debug\net8.0-windows
+                    settings.MainFormBackColor = BackColor.ToArgb();
                 }
             }
             catch (Exception ex) {
@@ -305,6 +305,14 @@ namespace CarReportSystem {
                 var serializer = new XmlSerializer(settings.GetType());
                 serializer.Serialize(writer, settings);
             }
+        }
+
+        private void dtpDate_ValueChanged(object sender, EventArgs e) {
+
+        }
+
+        private void cbAuthor_SelectedIndexChanged(object sender, EventArgs e) {
+
         }
     }
 }

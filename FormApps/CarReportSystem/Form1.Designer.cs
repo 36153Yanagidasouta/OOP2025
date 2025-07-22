@@ -150,6 +150,7 @@
             dtpDate.Name = "dtpDate";
             dtpDate.Size = new Size(200, 33);
             dtpDate.TabIndex = 1;
+            dtpDate.ValueChanged += dtpDate_ValueChanged;
             // 
             // cbAuthor
             // 
@@ -159,6 +160,7 @@
             cbAuthor.Name = "cbAuthor";
             cbAuthor.Size = new Size(208, 33);
             cbAuthor.TabIndex = 2;
+            cbAuthor.SelectedIndexChanged += cbAuthor_SelectedIndexChanged;
             // 
             // groupBox1
             // 

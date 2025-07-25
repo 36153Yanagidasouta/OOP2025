@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Frozen;
 using System.Net;
 using System.Security.Policy;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Net.WebRequestMethods;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RssReader {
     public partial class Form1 : Form {
@@ -139,14 +142,27 @@ namespace RssReader {
         //お気に入り機能
         private void btfavorite_Click(object sender, EventArgs e) {
 
-            var url = textboxUrl.Text;
-            var title = cbUrl.Text;
+            var url =  cbUrl.Text;
+            var title = textboxUrl.Text;
             rssUrlDict.Add(title, url);
             cbUrl.DataSource = rssUrlDict.Select(k => k.Key).ToList();
         }
 
 
+        //お気に入り登録削除
+        private void delbt_Click(object sender, EventArgs e) {
 
+
+    //        cbUrl.DataSource =   ;
+
+    //        var url = textboxUrl.Text;
+    //        var title = cbUrl.Text;
+    //        cbUrl.Items.Remove(title);
+
+
+
+
+        }
 
     }
 }

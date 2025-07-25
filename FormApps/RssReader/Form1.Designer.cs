@@ -31,6 +31,7 @@
             btGoForward = new Button();
             btfavorite = new Button();
             textboxUrl = new TextBox();
+            delbt = new Button();
             ((System.ComponentModel.ISupportInitialize)wvRssLink).BeginInit();
             SuspendLayout();
             // 
@@ -126,12 +127,23 @@
             textboxUrl.TabIndex = 8;
             textboxUrl.TextChanged += textboxUrl_SelectedIndexChanged;
             // 
+            // delbt
+            // 
+            delbt.Location = new Point(145, 85);
+            delbt.Name = "delbt";
+            delbt.Size = new Size(88, 45);
+            delbt.TabIndex = 9;
+            delbt.Text = "削除";
+            delbt.UseVisualStyleBackColor = true;
+            delbt.Click += delbt_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(819, 791);
+            Controls.Add(delbt);
             Controls.Add(textboxUrl);
             Controls.Add(btfavorite);
             Controls.Add(btGoForward);
@@ -159,5 +171,6 @@
         private Button btGoForward;
         private Button btfavorite;
         private TextBox textboxUrl;
+        private Button delbt;
     }
 }

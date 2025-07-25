@@ -29,16 +29,16 @@
             wvRssLink = new Microsoft.Web.WebView2.WinForms.WebView2();
             btGoBack = new Button();
             btGoForward = new Button();
-            cbUrl = new ComboBox();
-            button1 = new Button();
+            btokiniiri = new Button();
+            cbUrl = new TextBox();
             ((System.ComponentModel.ISupportInitialize)wvRssLink).BeginInit();
             SuspendLayout();
             // 
             // textboxUrl
             // 
-            textboxUrl.BackColor = SystemColors.ActiveCaptionText;
+            textboxUrl.BackColor = SystemColors.ButtonHighlight;
             textboxUrl.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            textboxUrl.ForeColor = Color.LawnGreen;
+            textboxUrl.ForeColor = Color.Black;
             textboxUrl.Location = new Point(261, 12);
             textboxUrl.Name = "textboxUrl";
             textboxUrl.Size = new Size(354, 33);
@@ -47,9 +47,9 @@
             // 
             // btRssGet
             // 
-            btRssGet.BackColor = SystemColors.ActiveCaptionText;
+            btRssGet.BackColor = Color.White;
             btRssGet.Font = new Font("Yu Gothic UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 128);
-            btRssGet.ForeColor = Color.LawnGreen;
+            btRssGet.ForeColor = Color.Black;
             btRssGet.Location = new Point(658, 12);
             btRssGet.Name = "btRssGet";
             btRssGet.Size = new Size(86, 59);
@@ -62,9 +62,9 @@
             // 
             listboxTitles.AllowDrop = true;
             listboxTitles.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            listboxTitles.BackColor = SystemColors.ActiveCaptionText;
+            listboxTitles.BackColor = Color.White;
             listboxTitles.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 128);
-            listboxTitles.ForeColor = Color.LawnGreen;
+            listboxTitles.ForeColor = Color.Black;
             listboxTitles.FormattingEnabled = true;
             listboxTitles.ItemHeight = 21;
             listboxTitles.Location = new Point(37, 149);
@@ -108,23 +108,23 @@
             btGoForward.UseVisualStyleBackColor = true;
             btGoForward.Click += btGo_Click;
             // 
+            // btokiniiri
+            // 
+            btokiniiri.Location = new Point(662, 85);
+            btokiniiri.Name = "btokiniiri";
+            btokiniiri.Size = new Size(82, 34);
+            btokiniiri.TabIndex = 7;
+            btokiniiri.Text = "おきに";
+            btokiniiri.UseVisualStyleBackColor = true;
+            btokiniiri.Click += btokiniiri_Click;
+            // 
             // cbUrl
             // 
-            cbUrl.FormattingEnabled = true;
-            cbUrl.Location = new Point(201, 85);
+            cbUrl.Location = new Point(262, 92);
             cbUrl.Name = "cbUrl";
-            cbUrl.Size = new Size(414, 23);
-            cbUrl.TabIndex = 6;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(662, 85);
-            button1.Name = "button1";
-            button1.Size = new Size(82, 34);
-            button1.TabIndex = 7;
-            button1.Text = "おきに";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            cbUrl.Size = new Size(353, 23);
+            cbUrl.TabIndex = 8;
+            cbUrl.TextChanged += textboxUrl_SelectedIndexChanged;
             // 
             // Form1
             // 
@@ -132,8 +132,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(819, 791);
-            Controls.Add(button1);
             Controls.Add(cbUrl);
+            Controls.Add(btokiniiri);
             Controls.Add(btGoForward);
             Controls.Add(btGoBack);
             Controls.Add(wvRssLink);
@@ -146,6 +146,7 @@
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)wvRssLink).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -156,7 +157,7 @@
         private Microsoft.Web.WebView2.WinForms.WebView2 wvRssLink;
         private Button btGoBack;
         private Button btGoForward;
-        private ComboBox cbUrl;
-        private Button button1;
+        private Button btokiniiri;
+        private TextBox cbUrl;
     }
 }

@@ -11,12 +11,10 @@ namespace RssReader {
         //      private List<ItemData> link;
 
         Dictionary<string, string> rssUrlDict = new Dictionary<string, string>() {
-            {"文学", "http://kyoko-np.net/book25071301.html "},
-            {"天文","http://kyoko-np.net/2025070701.html" },
-            {"科学","http://kyoko-np.net/2025062301.html" },
-            {"事件","http://kyoko-np.net/2025060501.html" },
-            {"社会","http://kyoko-np.net/2025052801.html" },
-            };
+            {"主要", "https://news.yahoo.co.jp/rss/topics/top-picks.xml"},
+            {"国際","https://news.yahoo.co.jp/rss/categories/world.xml" },
+            {"科学","http://news.yahoo.co.jp/rss/topics/science.xml" },
+        };
 
         public Form1() {
             InitializeComponent();
@@ -26,20 +24,27 @@ namespace RssReader {
 
         private void Form1_Load(object sender, EventArgs e) {
 
-            cbUrl.DataSource = rssUrlDict.Select(k => k.Key).ToList();
+
+            textboxUrl.DataSource = rssUrlDict.Select(k => k.Key).ToList();
+            textboxUrl.SelectedIndex = -1;
             GoFowardBtEnableSet();
 
         }
 
 
         private async void btRssGet_Click(object sender, EventArgs e) {
+            string url = textboxUrl.Text;
+
+            if (rssUrlDict.ContainsKey(textboxUrl.Text)) {
+                url = rssUrlDict[textboxUrl.Text];
+            }
 
             try {
                 using (var hc = new HttpClient()) {
 
                     //       if (listboxTitles.Items.Count == 0) return;
                     XDocument xdoc = XDocument
-                    .Parse(await hc.GetStringAsync(textboxUrl.Text));
+                    .Parse(await hc.GetStringAsync(url));
 
                     //RSSを解析して必要な要素を取得
                     items = xdoc.Root.Descendants("item")
@@ -48,16 +53,23 @@ namespace RssReader {
                         Title = (string?)x.Element("title"),
                         Link = (string?)x.Element("link"),
                     }).ToList();
+
                 }
 
                 //リストボックスに表示
                 listboxTitles.Items.Clear();
                 items.ForEach(item => listboxTitles.Items.Add(item.Title ?? "データなし"));
             }
-            catch (Exception) {
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
                 return;
             }
+
         }
+
+
+
+
 
         private string getRssUrl(string str) {
 
@@ -104,6 +116,7 @@ namespace RssReader {
 
         private void wvRssLink_SourceChanged(object sender, Microsoft.Web.WebView2.Core.CoreWebView2SourceChangedEventArgs e) {
 
+
             GoFowardBtEnableSet();
         }
 
@@ -116,13 +129,18 @@ namespace RssReader {
 
         private void textboxUrl_SelectedIndexChanged(object sender, EventArgs e) {
 
-        }
 
-        private void button1_Click(object sender, EventArgs e) {
 
 
 
         }
+
+        private void btokiniiri_Click(object sender, EventArgs e) {
+
+
+
+        }
+
 
         //お気に入り機能
 

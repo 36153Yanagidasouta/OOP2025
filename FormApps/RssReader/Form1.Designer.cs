@@ -29,6 +29,8 @@
             wvRssLink = new Microsoft.Web.WebView2.WinForms.WebView2();
             btGoBack = new Button();
             btGoForward = new Button();
+            cbUrl = new ComboBox();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)wvRssLink).BeginInit();
             SuspendLayout();
             // 
@@ -41,13 +43,14 @@
             textboxUrl.Name = "textboxUrl";
             textboxUrl.Size = new Size(354, 33);
             textboxUrl.TabIndex = 0;
+            textboxUrl.SelectedIndexChanged += textboxUrl_SelectedIndexChanged;
             // 
             // btRssGet
             // 
             btRssGet.BackColor = SystemColors.ActiveCaptionText;
             btRssGet.Font = new Font("Yu Gothic UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 128);
             btRssGet.ForeColor = Color.LawnGreen;
-            btRssGet.Location = new Point(683, 12);
+            btRssGet.Location = new Point(658, 12);
             btRssGet.Name = "btRssGet";
             btRssGet.Size = new Size(86, 59);
             btRssGet.TabIndex = 1;
@@ -64,9 +67,9 @@
             listboxTitles.ForeColor = Color.LawnGreen;
             listboxTitles.FormattingEnabled = true;
             listboxTitles.ItemHeight = 21;
-            listboxTitles.Location = new Point(37, 77);
+            listboxTitles.Location = new Point(37, 149);
             listboxTitles.Name = "listboxTitles";
-            listboxTitles.Size = new Size(692, 319);
+            listboxTitles.Size = new Size(692, 235);
             listboxTitles.TabIndex = 2;
             listboxTitles.Click += listboxTitles_Click;
             // 
@@ -105,12 +108,32 @@
             btGoForward.UseVisualStyleBackColor = true;
             btGoForward.Click += btGo_Click;
             // 
+            // cbUrl
+            // 
+            cbUrl.FormattingEnabled = true;
+            cbUrl.Location = new Point(201, 85);
+            cbUrl.Name = "cbUrl";
+            cbUrl.Size = new Size(414, 23);
+            cbUrl.TabIndex = 6;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(662, 85);
+            button1.Name = "button1";
+            button1.Size = new Size(82, 34);
+            button1.TabIndex = 7;
+            button1.Text = "おきに";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(819, 791);
+            Controls.Add(button1);
+            Controls.Add(cbUrl);
             Controls.Add(btGoForward);
             Controls.Add(btGoBack);
             Controls.Add(wvRssLink);
@@ -120,6 +143,7 @@
             ForeColor = SystemColors.ActiveCaptionText;
             Name = "Form1";
             Text = "RSSリーダー";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)wvRssLink).EndInit();
             ResumeLayout(false);
         }
@@ -132,5 +156,7 @@
         private Microsoft.Web.WebView2.WinForms.WebView2 wvRssLink;
         private Button btGoBack;
         private Button btGoForward;
+        private ComboBox cbUrl;
+        private Button button1;
     }
 }

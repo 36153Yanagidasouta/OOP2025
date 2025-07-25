@@ -2,21 +2,35 @@ using System.Net;
 using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using static System.Net.WebRequestMethods;
 
 namespace RssReader {
     public partial class Form1 : Form {
 
-
-
         private List<ItemData> items;
         //      private List<ItemData> link;
 
+        Dictionary<string, string> rssUrlDict = new Dictionary<string, string>() {
+            {"文学", "http://kyoko-np.net/book25071301.html "},
+            {"天文","http://kyoko-np.net/2025070701.html" },
+            {"科学","http://kyoko-np.net/2025062301.html" },
+            {"事件","http://kyoko-np.net/2025060501.html" },
+            {"社会","http://kyoko-np.net/2025052801.html" },
+            };
 
         public Form1() {
             InitializeComponent();
             btGoBack.Enabled = wvRssLink.CanGoBack;
             btGoForward.Enabled = wvRssLink.CanGoForward;
         }
+
+        private void Form1_Load(object sender, EventArgs e) {
+
+            cbUrl.DataSource = rssUrlDict.Select(k => k.Key).ToList();
+            GoFowardBtEnableSet();
+
+        }
+
 
         private async void btRssGet_Click(object sender, EventArgs e) {
 
@@ -38,15 +52,21 @@ namespace RssReader {
 
                 //リストボックスに表示
                 listboxTitles.Items.Clear();
-                items.ForEach(item => listboxTitles.Items.Add(item.Title));
+                items.ForEach(item => listboxTitles.Items.Add(item.Title ?? "データなし"));
             }
             catch (Exception) {
                 return;
             }
+        }
 
+        private string getRssUrl(string str) {
 
-        }//https://kyoko-np.net/index.xml
+            if (rssUrlDict.ContainsKey(str)) {
+                return rssUrlDict[str];
 
+            }
+            return str;
+        }
 
 
         //タイトルを選択(クリック)したときに呼ばれるイベントハンドラー
@@ -82,9 +102,8 @@ namespace RssReader {
         }
 
 
-
         private void wvRssLink_SourceChanged(object sender, Microsoft.Web.WebView2.Core.CoreWebView2SourceChangedEventArgs e) {
-      
+
             GoFowardBtEnableSet();
         }
 
@@ -95,7 +114,15 @@ namespace RssReader {
 
         }
 
+        private void textboxUrl_SelectedIndexChanged(object sender, EventArgs e) {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e) {
+
+
+
+        }
 
         //お気に入り機能
 

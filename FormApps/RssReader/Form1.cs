@@ -1,3 +1,4 @@
+using System.Collections.Frozen;
 using System.Net;
 using System.Security.Policy;
 using System.Threading.Tasks;
@@ -25,18 +26,18 @@ namespace RssReader {
         private void Form1_Load(object sender, EventArgs e) {
 
 
-            textboxUrl.DataSource = rssUrlDict.Select(k => k.Key).ToList();
-            textboxUrl.SelectedIndex = -1;
+            cbUrl.DataSource = rssUrlDict.Select(k => k.Key).ToList();
+            cbUrl.SelectedIndex = -1;
             GoFowardBtEnableSet();
 
         }
 
 
         private async void btRssGet_Click(object sender, EventArgs e) {
-            string url = textboxUrl.Text;
+            string url = cbUrl.Text;
 
-            if (rssUrlDict.ContainsKey(textboxUrl.Text)) {
-                url = rssUrlDict[textboxUrl.Text];
+            if (rssUrlDict.ContainsKey(cbUrl.Text)) {
+                url = rssUrlDict[cbUrl.Text];
             }
 
             try {
@@ -135,15 +136,14 @@ namespace RssReader {
 
         }
 
-        private void btokiniiri_Click(object sender, EventArgs e) {
-
-
-
-        }
-
-
         //‚¨‹C‚É“ü‚è‹@”\
+        private void btfavorite_Click(object sender, EventArgs e) {
 
+            var url = textboxUrl.Text;
+            var title = cbUrl.Text;
+            rssUrlDict.Add(title, url);
+            cbUrl.DataSource = rssUrlDict.Select(k => k.Key).ToList();
+        }
 
 
 

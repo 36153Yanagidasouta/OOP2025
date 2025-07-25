@@ -23,27 +23,27 @@
         ///  the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            textboxUrl = new ComboBox();
+            cbUrl = new ComboBox();
             btRssGet = new Button();
             listboxTitles = new ListBox();
             wvRssLink = new Microsoft.Web.WebView2.WinForms.WebView2();
             btGoBack = new Button();
             btGoForward = new Button();
-            btokiniiri = new Button();
-            cbUrl = new TextBox();
+            btfavorite = new Button();
+            textboxUrl = new TextBox();
             ((System.ComponentModel.ISupportInitialize)wvRssLink).BeginInit();
             SuspendLayout();
             // 
-            // textboxUrl
+            // cbUrl
             // 
-            textboxUrl.BackColor = SystemColors.ButtonHighlight;
-            textboxUrl.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            textboxUrl.ForeColor = Color.Black;
-            textboxUrl.Location = new Point(261, 12);
-            textboxUrl.Name = "textboxUrl";
-            textboxUrl.Size = new Size(354, 33);
-            textboxUrl.TabIndex = 0;
-            textboxUrl.SelectedIndexChanged += textboxUrl_SelectedIndexChanged;
+            cbUrl.BackColor = SystemColors.ButtonHighlight;
+            cbUrl.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            cbUrl.ForeColor = Color.Black;
+            cbUrl.Location = new Point(261, 12);
+            cbUrl.Name = "cbUrl";
+            cbUrl.Size = new Size(354, 33);
+            cbUrl.TabIndex = 0;
+            cbUrl.SelectedIndexChanged += textboxUrl_SelectedIndexChanged;
             // 
             // btRssGet
             // 
@@ -108,23 +108,23 @@
             btGoForward.UseVisualStyleBackColor = true;
             btGoForward.Click += btGo_Click;
             // 
-            // btokiniiri
+            // btfavorite
             // 
-            btokiniiri.Location = new Point(662, 85);
-            btokiniiri.Name = "btokiniiri";
-            btokiniiri.Size = new Size(82, 34);
-            btokiniiri.TabIndex = 7;
-            btokiniiri.Text = "おきに";
-            btokiniiri.UseVisualStyleBackColor = true;
-            btokiniiri.Click += btokiniiri_Click;
+            btfavorite.Location = new Point(662, 85);
+            btfavorite.Name = "btfavorite";
+            btfavorite.Size = new Size(82, 34);
+            btfavorite.TabIndex = 7;
+            btfavorite.Text = "おきに登録";
+            btfavorite.UseVisualStyleBackColor = true;
+            btfavorite.Click += btfavorite_Click;
             // 
-            // cbUrl
+            // textboxUrl
             // 
-            cbUrl.Location = new Point(262, 92);
-            cbUrl.Name = "cbUrl";
-            cbUrl.Size = new Size(353, 23);
-            cbUrl.TabIndex = 8;
-            cbUrl.TextChanged += textboxUrl_SelectedIndexChanged;
+            textboxUrl.Location = new Point(262, 92);
+            textboxUrl.Name = "textboxUrl";
+            textboxUrl.Size = new Size(353, 23);
+            textboxUrl.TabIndex = 8;
+            textboxUrl.TextChanged += textboxUrl_SelectedIndexChanged;
             // 
             // Form1
             // 
@@ -132,14 +132,14 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(819, 791);
-            Controls.Add(cbUrl);
-            Controls.Add(btokiniiri);
+            Controls.Add(textboxUrl);
+            Controls.Add(btfavorite);
             Controls.Add(btGoForward);
             Controls.Add(btGoBack);
             Controls.Add(wvRssLink);
             Controls.Add(listboxTitles);
             Controls.Add(btRssGet);
-            Controls.Add(textboxUrl);
+            Controls.Add(cbUrl);
             ForeColor = SystemColors.ActiveCaptionText;
             Name = "Form1";
             Text = "RSSリーダー";
@@ -151,13 +151,13 @@
 
         #endregion
 
-        private ComboBox textboxUrl;
+        private ComboBox cbUrl;
         private Button btRssGet;
         private ListBox listboxTitles;
         private Microsoft.Web.WebView2.WinForms.WebView2 wvRssLink;
         private Button btGoBack;
         private Button btGoForward;
-        private Button btokiniiri;
-        private TextBox cbUrl;
+        private Button btfavorite;
+        private TextBox textboxUrl;
     }
 }

@@ -66,15 +66,17 @@
             listboxTitles.AllowDrop = true;
             listboxTitles.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             listboxTitles.BackColor = Color.Silver;
+            listboxTitles.DrawMode = DrawMode.OwnerDrawFixed;
             listboxTitles.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 128);
             listboxTitles.ForeColor = Color.Black;
             listboxTitles.FormattingEnabled = true;
             listboxTitles.ItemHeight = 21;
             listboxTitles.Location = new Point(37, 166);
             listboxTitles.Name = "listboxTitles";
-            listboxTitles.Size = new Size(692, 214);
+            listboxTitles.Size = new Size(919, 256);
             listboxTitles.TabIndex = 2;
             listboxTitles.Click += listboxTitles_Click;
+            listboxTitles.DrawItem += listboxTitles_DrawItem;
             // 
             // wvRssLink
             // 
@@ -84,9 +86,9 @@
             wvRssLink.CreationProperties = null;
             wvRssLink.DefaultBackgroundColor = Color.White;
             wvRssLink.ForeColor = SystemColors.ActiveCaptionText;
-            wvRssLink.Location = new Point(48, 418);
+            wvRssLink.Location = new Point(37, 444);
             wvRssLink.Name = "wvRssLink";
-            wvRssLink.Size = new Size(681, 352);
+            wvRssLink.Size = new Size(919, 401);
             wvRssLink.TabIndex = 3;
             wvRssLink.ZoomFactor = 1D;
             wvRssLink.SourceChanged += wvRssLink_SourceChanged;
@@ -177,7 +179,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDark;
-            ClientSize = new Size(819, 791);
+            ClientSize = new Size(1046, 840);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
             Controls.Add(delbt);

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Frozen;
 using System.Net;
 using System.Security.Policy;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -39,6 +40,7 @@ namespace RssReader {
         private async void btRssGet_Click(object sender, EventArgs e) {
             string url = cbUrl.Text;
 
+
             if (rssUrlDict.ContainsKey(cbUrl.Text)) {
                 url = rssUrlDict[cbUrl.Text];
             }
@@ -65,15 +67,11 @@ namespace RssReader {
                 items.ForEach(item => listboxTitles.Items.Add(item.Title ?? "データなし"));
             }
             catch (Exception ex) {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("URLが入ってないっすね");
                 return;
             }
 
         }
-
-
-
-
 
         private string getRssUrl(string str) {
 
@@ -133,6 +131,8 @@ namespace RssReader {
 
         private void textboxUrl_SelectedIndexChanged(object sender, EventArgs e) {
 
+            var url = cbUrl;
+
         }
 
         //お気に入り機能
@@ -142,6 +142,7 @@ namespace RssReader {
             var title = textboxUrl.Text;
             rssUrlDict.Add(title, url);
             cbUrl.DataSource = rssUrlDict.Select(k => k.Key).ToList();
+            cbUrl.SelectedIndex = -1;
         }
 
 
@@ -163,5 +164,32 @@ namespace RssReader {
             }
         }
 
+        private void listboxTitles_DrawItem(object sender, DrawItemEventArgs e) {
+            var idx = e.Index;                                                      //描画対象の行
+            if (idx == -1) return;                                                  //範囲外なら何もしない
+            var sts = e.State;                                                      //セルの状態
+            var fnt = e.Font;                                                       //フォント
+            var _bnd = e.Bounds;                                                    //描画範囲(オリジナル)
+            var bnd = new RectangleF(_bnd.X, _bnd.Y, _bnd.Width, _bnd.Height);     //描画範囲(描画用)
+            var txt = (string)listboxTitles.Items[idx];                                  //リストボックス内の文字
+            var bsh = new SolidBrush(listboxTitles.ForeColor);                           //文字色
+            var sel = (DrawItemState.Selected == (sts & DrawItemState.Selected));   //選択行か
+            var odd = (idx % 2 == 1);                                               //奇数行か
+            var fore = Brushes.Coral;                                         //偶数行の背景色
+            var bak = Brushes.DarkViolet;                                           //奇数行の背景色
+
+            e.DrawBackground();                                                     //背景描画
+
+            //奇数項目の背景色を変える（選択行は除く）
+            if (odd && !sel) {
+                e.Graphics.FillRectangle(bak, bnd);
+            } else if (!odd && !sel) {
+                e.Graphics.FillRectangle(fore, bnd);
+            }
+
+            //文字を描画
+            e.Graphics.DrawString(txt, fnt, bsh, bnd);
+        }
+    
     }
 }

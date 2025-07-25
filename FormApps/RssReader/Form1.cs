@@ -142,27 +142,29 @@ namespace RssReader {
         //お気に入り機能
         private void btfavorite_Click(object sender, EventArgs e) {
 
-            var url =  cbUrl.Text;
+            var url = cbUrl.Text;
             var title = textboxUrl.Text;
             rssUrlDict.Add(title, url);
             cbUrl.DataSource = rssUrlDict.Select(k => k.Key).ToList();
         }
 
 
-        //お気に入り登録削除
+        //お気に入り削除機能
         private void delbt_Click(object sender, EventArgs e) {
+           
+            var title = cbUrl.Text;           
+            if (rssUrlDict.ContainsKey(title)) {
+                rssUrlDict.Remove(title);
 
+               
+                cbUrl.DataSource = null; 
+                cbUrl.DataSource = rssUrlDict.Select(k => k.Key).ToList();
 
-    //        cbUrl.DataSource =   ;
-
-    //        var url = textboxUrl.Text;
-    //        var title = cbUrl.Text;
-    //        cbUrl.Items.Remove(title);
-
-
-
-
+                cbUrl.SelectedIndex = -1;
+                MessageBox.Show($"{title} のお気に入りを削除しました");
+            } else {
+                MessageBox.Show("選択されたタイトルがなし");
+            }
         }
-
     }
 }

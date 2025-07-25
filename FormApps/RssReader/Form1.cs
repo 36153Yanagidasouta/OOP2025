@@ -133,10 +133,6 @@ namespace RssReader {
 
         private void textboxUrl_SelectedIndexChanged(object sender, EventArgs e) {
 
-
-
-
-
         }
 
         //お気に入り機能
@@ -151,13 +147,13 @@ namespace RssReader {
 
         //お気に入り削除機能
         private void delbt_Click(object sender, EventArgs e) {
-           
-            var title = cbUrl.Text;           
+
+            var title = cbUrl.Text;
             if (rssUrlDict.ContainsKey(title)) {
                 rssUrlDict.Remove(title);
 
-               
-                cbUrl.DataSource = null; 
+
+                cbUrl.DataSource = null;
                 cbUrl.DataSource = rssUrlDict.Select(k => k.Key).ToList();
 
                 cbUrl.SelectedIndex = -1;
@@ -166,5 +162,6 @@ namespace RssReader {
                 MessageBox.Show("選択されたタイトルがなし");
             }
         }
+
     }
 }

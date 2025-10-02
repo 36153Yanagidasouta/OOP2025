@@ -13,16 +13,38 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ConverterApp
-{
-    /// <summary>
-    /// MainWindow.xaml の相互作用ロジック
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
+namespace ConverterApp {
+    public partial class MainWindow : Window {
+
+        public MainWindow() {
             InitializeComponent();
+        }
+
+
+        private void MetricUnit_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+
+
+
+
+
+        }
+
+        private void MetricToImperialUnit_Click(object sender, RoutedEventArgs e) {
+
+            string str1 = MetricUnit.Text;
+            string str2 = ImperialUnit.Text;
+            var stringtext = (str1 + str2);
+
+            double inputText =   ; 
+
+
+            switch (stringtext == "mmin") {
+
+            }   
+
+
+
+
         }
     }
 }

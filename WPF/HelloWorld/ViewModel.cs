@@ -9,8 +9,8 @@ namespace HelloWorld {
     class ViewModel : BindableBase {
 
         public ViewModel() {
-            ChangeMessageCommand = new DelegateCommand<string>(
-                (par) => GreetingMesseage = par);
+            ChangeMessageCommand = new DelegateCommand(() =>
+            GreetingMesseage = "日本");
         }
 
         private string _greetingMessage = "HelloWorld";
@@ -19,7 +19,6 @@ namespace HelloWorld {
             set => SetProperty(ref _greetingMessage, value);
 
         }
-
-        public DelegateCommand <string> ChangeMessageCommand { get; }
+        public DelegateCommand ChangeMessageCommand { get; }
     }
 }

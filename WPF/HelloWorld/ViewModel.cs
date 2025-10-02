@@ -6,28 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace HelloWorld {
-    class ViewModel : INotifyPropertyChanged {
+    class ViewModel : BindableBase {
 
         public ViewModel() {
-            ChangeMessageCommand = new DelegateCommand(() =>
-            GreetingMesseage = "日本");
+            ChangeMessageCommand = new DelegateCommand<string>(
+                (par) => GreetingMesseage = par);
         }
 
         private string _greetingMessage = "HelloWorld";
         public string GreetingMesseage {
             get => _greetingMessage;
-            set {
-                if (_greetingMessage != value) {
-                    _greetingMessage = value;
-                    PropertyChanged?.Invoke(
-                        this, new PropertyChangedEventArgs(nameof(GreetingMesseage)));
-                }
-            }
+            set => SetProperty(ref _greetingMessage, value);
+
         }
 
-
-        public DelegateCommand ChangeMessageCommand { get; }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public DelegateCommand <string> ChangeMessageCommand { get; }
     }
 }

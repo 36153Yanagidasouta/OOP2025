@@ -169,6 +169,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConverterApp", "WPF\Convert
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld", "WPF\HelloWorld\HelloWorld.csproj", "{D3127C72-4688-4793-81B8-6D58FB584599}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrismObservesSample", "WPF\PrismObservesSample\PrismObservesSample.csproj", "{92230614-4B11-41B3-B0B7-3FF136A77B2A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -399,6 +401,10 @@ Global
 		{D3127C72-4688-4793-81B8-6D58FB584599}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3127C72-4688-4793-81B8-6D58FB584599}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3127C72-4688-4793-81B8-6D58FB584599}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92230614-4B11-41B3-B0B7-3FF136A77B2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92230614-4B11-41B3-B0B7-3FF136A77B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92230614-4B11-41B3-B0B7-3FF136A77B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92230614-4B11-41B3-B0B7-3FF136A77B2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -472,6 +478,7 @@ Global
 		{956FBD3F-983E-401B-80E4-1A2434A1F613} = {E999D408-0A81-4DBE-B5B6-776A12066312}
 		{BDDF2C4F-E215-48F1-A081-2B28D3773B52} = {E999D408-0A81-4DBE-B5B6-776A12066312}
 		{D3127C72-4688-4793-81B8-6D58FB584599} = {E999D408-0A81-4DBE-B5B6-776A12066312}
+		{92230614-4B11-41B3-B0B7-3FF136A77B2A} = {E999D408-0A81-4DBE-B5B6-776A12066312}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {65A5349E-0839-40A8-9F1D-B26AF4AEB14F}

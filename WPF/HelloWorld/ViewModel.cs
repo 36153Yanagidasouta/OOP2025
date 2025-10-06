@@ -11,25 +11,16 @@ namespace HelloWorld {
 
         public ViewModel() {
             ChangeMessageCommand = new DelegateCommand<string>(
-                (par) => GreetingMesseage = par);
+                 (par) => GreetingMesseage = par,
+                 (par) => GreetingMesseage != par)
+                .ObservesProperty(() => GreetingMesseage);
         }
+
 
         private string _greetingMessage = "HelloWorld";
         public string GreetingMesseage {
             get => _greetingMessage;
-            set {
-                if (SetProperty(ref _greetingMessage, value)) {
-                    CanChangeMessage = false;
-
-                }
-
-            }
-        }
-
-        private bool _canChangeMessage = true;
-        public bool CanChangeMessage {
-            get => _canChangeMessage;
-            private set => SetProperty(ref _canChangeMessage, value);
+            set => SetProperty(ref _greetingMessage, value);
         }
 
         public string NewMessage1 { get; } = "日本最高";

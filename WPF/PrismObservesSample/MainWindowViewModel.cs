@@ -44,7 +44,7 @@ namespace PrismObservesSample {
             Result = sum.ToString();
         }
 
-
+        //足し算処理を実行できるか判断
         private bool CanExcuteSum() {
 
             return (int.TryParse(Input1, out _) && int.TryParse(Input2, out _));

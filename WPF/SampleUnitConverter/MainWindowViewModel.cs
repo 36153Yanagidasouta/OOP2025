@@ -14,11 +14,11 @@ namespace SampleUnitConverter {
         private double imperialValue;
 
         //▲で呼び出すコマンド
-        public ICommand ImperialUnitToMetric { get; private set; }
+        public DelegateCommand ImperialUnitToMetric { get; private set; }
 
 
         //▼で呼び出すコマンド
-        public ICommand MetricUnitToImperial { get; private set; }
+        public DelegateCommand MetricUnitToImperial { get; private set; }
 
 
         //上のコンボボックスで選択されている値

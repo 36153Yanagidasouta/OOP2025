@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SampleUnitConverter {
-    internal class MainWindowViewModel : ViewModel {
+    internal class MainWindowViewModel : BindableBase {
 
 
         //フィールド
@@ -30,20 +30,16 @@ namespace SampleUnitConverter {
         //プロパティ
         public double MetricValue {
             get => metricValue;
-            set {
-                this.metricValue = value;
-                this.OnPropertyChanged();
-            }
+            set => SetProperty(ref metricValue, value);
         }
+
 
         public double ImperialValue {
             get => imperialValue;
-            set {
-                this.imperialValue = value;
-                this.OnPropertyChanged();
-            }
-
+            set => SetProperty(ref imperialValue, value);
         }
+
+        
         public MainWindowViewModel() {
 
             CurrentMetricUnit = MetricUnit.Units.First();

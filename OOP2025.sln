@@ -177,6 +177,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQlite", "SQlite", "{AA7CA8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "..\..\..\Desktop\SQLite\Sample\Sample.csproj", "{9168E509-6760-3E20-8FD9-5FCDD7DFA59B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerApp", "WPF\CustomerApp\CustomerApp.csproj", "{8CC76EFF-C078-43E9-970A-4BA601E501F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -419,6 +421,10 @@ Global
 		{9168E509-6760-3E20-8FD9-5FCDD7DFA59B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9168E509-6760-3E20-8FD9-5FCDD7DFA59B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9168E509-6760-3E20-8FD9-5FCDD7DFA59B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CC76EFF-C078-43E9-970A-4BA601E501F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CC76EFF-C078-43E9-970A-4BA601E501F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CC76EFF-C078-43E9-970A-4BA601E501F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CC76EFF-C078-43E9-970A-4BA601E501F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -495,6 +501,7 @@ Global
 		{92230614-4B11-41B3-B0B7-3FF136A77B2A} = {E999D408-0A81-4DBE-B5B6-776A12066312}
 		{E53A5E3B-987E-4584-8AAF-1FBC322BB262} = {E999D408-0A81-4DBE-B5B6-776A12066312}
 		{9168E509-6760-3E20-8FD9-5FCDD7DFA59B} = {AA7CA85E-E1D1-4651-B00E-866B6F682DBF}
+		{8CC76EFF-C078-43E9-970A-4BA601E501F1} = {AA7CA85E-E1D1-4651-B00E-866B6F682DBF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {65A5349E-0839-40A8-9F1D-B26AF4AEB14F}

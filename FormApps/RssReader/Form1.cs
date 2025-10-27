@@ -16,7 +16,7 @@ namespace RssReader {
         //      private List<ItemData> link;
 
         Dictionary<string, string> rssUrlDict = new Dictionary<string, string>() {
-            {"éÂóv", "https://news.yahoo.co.jp/rss/topics/top-picks.xml"},
+            {"éÂóv", "https://jp-postal-code-api.ttskch.com/api/v1/3792231.json"},
             {"çëç€","https://news.yahoo.co.jp/rss/categories/world.xml" },
             {"â»äw","http://news.yahoo.co.jp/rss/topics/science.xml" },
         };

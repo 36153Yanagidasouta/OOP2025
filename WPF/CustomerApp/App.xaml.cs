@@ -8,7 +8,7 @@ namespace CustomerApp;
 /// Interaction logic for App.xaml
 /// </summary>
 public partial class App : Application {
-    static string databaseName = "Persons.db";
+    static string databaseName = "Customer.db";
     static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
     public static string databasePath = System.IO.Path.Combine(folderPath, databaseName);
 }

@@ -3,11 +3,7 @@ namespace Exercise01 {
     internal class Program {
         static void Main(string[] args) {
 
-
-
             Exercise1_2();
-
-
             Exercise1_3();
             Console.WriteLine();
             Exercise1_4();
@@ -56,19 +52,53 @@ namespace Exercise01 {
             }
         }
 
+        //private static void Exercise1_5() {
+        //    var categories = Library.Categories;
+        //    var groups = Library.Books
+        //    .Where(b => b.PublishedYear == 2022);
+        //    foreach (var item in categories) {
+        //        Console.WriteLine($"{groups} ");
+        //    }
+        //}
+
+
+        //正解答例
         private static void Exercise1_5() {
-            var categories = Library.Categories;
-            var groups = Library.Books
-            .Where(b => b.PublishedYear == 2022);
-            foreach (var item in categories) {
-                Console.WriteLine($"{item} ");
+            var books = Library.Books
+                .Join(Library.Categories
+                        , book => book.CategoryId
+                        , Category => Category.Id,
+                        (book, category) => new {
+                            book.Title,
+                            Category = category.Name,
+                            book.PublishedYear
+                        })
+                .Where(b => b.PublishedYear == 2022)
+                .OrderBy(b => b.PublishedYear)
+                .ThenBy(b => b.Category)
+                .DistinctBy(b => b.Category);
+            foreach (var book in books) {
+                Console.WriteLine($"{book.Category}");
             }
         }
 
         private static void Exercise1_6() {
-
-
-
+            var groups = Library.Books
+                .Join(Library.Categories
+                        , b => b.CategoryId
+                        , c => c.Id,
+                        (b, c) => new {
+                            CategoryName = c.Name,
+                            b.Title
+                        })
+                  .GroupBy(x => x.CategoryName)
+                  .OrderBy(x => x.Key);
+            foreach (var group in groups) {
+                Console.WriteLine($"#{group.Key}");
+                foreach (var item in group) {
+                    Console.WriteLine("   " + $"{item.Title}");
+                }
+            }
         }
 
         private static void Exercise1_7() {

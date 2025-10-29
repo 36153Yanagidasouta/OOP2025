@@ -57,12 +57,12 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_5() {
+            var categories = Library.Categories;
             var groups = Library.Books
             .Where(b => b.PublishedYear == 2022);
-            foreach (var item in groups) {
-                Console.WriteLine($"{ item.CategoryId } ");
+            foreach (var item in categories) {
+                Console.WriteLine($"{item} ");
             }
-
         }
 
         private static void Exercise1_6() {

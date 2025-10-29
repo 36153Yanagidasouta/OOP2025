@@ -47,7 +47,13 @@ namespace Exercise01 {
 
 
         private static void Exercise1_4() {
-
+            var groups = Library.Books
+             .OrderByDescending(g => g.PublishedYear)
+            .ThenBy(b => b.CategoryId)
+            .ThenBy(b => b.Price);
+            foreach (var group in groups) {
+                Console.WriteLine(group);
+            }   
         }
 
         private static void Exercise1_5() {

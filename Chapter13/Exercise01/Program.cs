@@ -35,8 +35,8 @@ namespace Exercise01 {
 
             var groups = Library.Books
             .GroupBy(b => b.PublishedYear)
-            .GroupBy(g => g.Count())
-            .OrderBy(b => b.Key);   
+            .OrderBy(g => g.Key)
+            .GroupBy(g => g.Count());
             foreach (var item in groups) {
                 foreach (var book in item) {
                     Console.WriteLine($"  {book.Key}年:{book.Count()}");

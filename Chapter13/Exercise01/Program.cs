@@ -40,7 +40,7 @@ namespace Exercise01 {
             foreach (var item in groups) {
                 foreach (var book in item) {
                     Console.WriteLine($"  {book.Key}年:{book.Count()}");
-                }   
+                }
             }
         }
 
@@ -48,19 +48,26 @@ namespace Exercise01 {
 
         private static void Exercise1_4() {
             var groups = Library.Books
-             .OrderByDescending(g => g.PublishedYear)
+            .OrderByDescending(g => g.PublishedYear)
             .ThenBy(b => b.CategoryId)
             .ThenBy(b => b.Price);
             foreach (var group in groups) {
                 Console.WriteLine(group);
-            }   
+            }
         }
 
         private static void Exercise1_5() {
+            var groups = Library.Books
+            .Where(b => b.PublishedYear == 2022);
+            foreach (var item in groups) {
+                Console.WriteLine($"{ item.CategoryId } ");
+            }
 
         }
 
         private static void Exercise1_6() {
+
+
 
         }
 

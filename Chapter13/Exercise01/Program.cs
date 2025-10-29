@@ -102,6 +102,23 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_7() {
+            var groups = Library.Categories
+                .Where(c => c.Name.Contains("Development"))
+                .Join(Library.Books,
+                        c => c.Id,
+                        b => b.CategoryId,
+                        (c, b) => new {
+                            b.Title,
+                            b.PublishedYear
+                        })
+                  .GroupBy(x => x.PublishedYear)
+                  .OrderBy(x => x.Key);
+            foreach (var group in groups) {
+                Console.WriteLine($"#{group.Key}");
+                foreach (var item in group) {
+                    Console.WriteLine("   " + $"{item.Title}");
+                }
+            }
 
         }
 

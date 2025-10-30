@@ -103,27 +103,35 @@ namespace Exercise01 {
 
         private static void Exercise1_7() {
             var groups = Library.Categories
-                .Where(c => c.Name.Contains("Development"))
-                .Join(Library.Books,
-                        c => c.Id,
-                        b => b.CategoryId,
-                        (c, b) => new {
-                            b.Title,
-                            b.PublishedYear
-                        })
-                  .GroupBy(x => x.PublishedYear)
-                  .OrderBy(x => x.Key);
+                .GroupJoin(Library.Books,
+                c => c.Id,
+                b => b.CategoryId,
+                (c, books) => new {
+                    CategoryName = c.Name,
+                    Books = books
+                });
             foreach (var group in groups) {
-                Console.WriteLine($"#{group.Key}");
-                foreach (var item in group) {
-                    Console.WriteLine("   " + $"{item.Title}");
+                Console.WriteLine(group.CategoryName);
+                foreach (var book in group.Books) {
+                    Console.WriteLine($"{book.Title} ({book.PublishedYear})年");
                 }
             }
-
         }
 
         private static void Exercise1_8() {
-
+            var CategoryNames = Library.Categories
+                .GroupJoin(Library.Books,
+                c => c.Id,
+                b => b.CategoryId,
+                (c, books) => new {
+                    CategoryName = c.Name,
+                    Count = books.Count()
+                })
+                .Where(c => c.Count == 4)
+                .Select(x => x.CategoryName);   
+            foreach (var name in CategoryNames ) {
+                Console.WriteLine(name);    
+            }
         }
     }
 }

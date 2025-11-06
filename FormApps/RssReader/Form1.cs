@@ -28,8 +28,6 @@ namespace RssReader {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-
-
             cbUrl.DataSource = rssUrlDict.Select(k => k.Key).ToList();
             cbUrl.SelectedIndex = -1;
             GoFowardBtEnableSet();
@@ -41,9 +39,6 @@ namespace RssReader {
             string url = cbUrl.Text;
 
 
-            if (rssUrlDict.ContainsKey(cbUrl.Text)) {
-                url = rssUrlDict[cbUrl.Text];
-            }
 
             try {
                 using (var hc = new HttpClient()) {

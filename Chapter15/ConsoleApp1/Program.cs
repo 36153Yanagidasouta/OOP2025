@@ -3,7 +3,7 @@
 namespace Section01 {
     internal class Program {
         static void Main(string[] args) {
-            List<GreetingBase> list = [
+            List<IGreeting> list = [
                 new GreetingMorning(),
                 new GreetingAfternoon(),
                 new GreetingEvening()
@@ -17,15 +17,15 @@ namespace Section01 {
     }
 
 
-     class GreetingMorning : GreetingBase {
+     class GreetingMorning : IGreeting{
         public string GetMessage() => "おはよう";
     }
 
-    class GreetingAfternoon : GreetingBase {
+    class GreetingAfternoon : IGreeting {
         public string GetMessage() => "こんちは";
     }
 
-    class GreetingEvening : GreetingBase {
+    class GreetingEvening : IGreeting {
         public string GetMessage() => "こんばんわ";
     }
 }

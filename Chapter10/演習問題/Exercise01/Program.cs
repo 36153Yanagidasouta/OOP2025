@@ -12,6 +12,8 @@ namespace Exercise01 {
                 string[] lines = File.ReadAllLines(filepath, Encoding.UTF8);
                 int count = lines.Count(s => s.Contains("class"));
                 Console.WriteLine($"{count} 行");
+
+                
             }
         }
     }

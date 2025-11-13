@@ -5,15 +5,30 @@ using System.Text;
 using System.Threading.Tasks;
 using TextFileProcessor;
 
-namespace LineCounter{
-    internal class LineCounterProcessor  : TextProcessor{
-        private int _count = 0;
+namespace LineCounter {
+    internal class LineCounterProcessor : TextProcessor {
+        public int _totalCount = 0;
+        public string _targetString = "int";
 
-    protected override void Initialize(string fname) => _count = 0;
+        protected override void Initialize(string fname) {
+            _totalCount = 0;
+            Console.WriteLine("検索したい文字列 ");
+            _targetString = Console.ReadLine() ;
+        }
 
-    protected override void Execute(string line) => _count++;
+        protected override void Execute(string line) {
+            if (string.IsNullOrEmpty(_targetString)) return;
 
-    protected override void Terminate() => Console.WriteLine("{0} 行,",_count);
+            int countInLine = 0;
+            int index = -1;
+            while ((index = line.IndexOf(_targetString, index + 1)) != -1) {
+                countInLine++;
+            }
+            _totalCount += countInLine;
+        }
 
+        protected override void Terminate() {
+            Console.WriteLine("合計{0}個", _totalCount);
+        }
     }
 }

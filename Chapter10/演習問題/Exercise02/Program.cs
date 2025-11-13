@@ -1,7 +1,7 @@
 ﻿namespace Exercise02 {
     internal class Program {
         static void Main(string[] args) {
-            var filePath = "source.txt";
+            var filePath = "C:\\Users\\infosys\\source\\repos\\OOP2025\\Chapter15\\TemplateMethod\\LineCounter\\source.txt.txt";
             var lines = File.ReadLines(filePath)
                         .Select((s, ix) => $"{ix + 1,4}:{s}");
 

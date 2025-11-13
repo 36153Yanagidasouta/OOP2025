@@ -13,7 +13,7 @@ namespace TextFileProcessor {
 
         private void Process(string fileName) {
             Initialize(fileName);
-            var lines = File.ReadLines(fileName);
+            var lines = File.ReadAllLines(fileName);
             foreach (var line in lines) {
                 Execute(line);
             }

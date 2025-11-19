@@ -13,19 +13,22 @@ namespace TextFileProcessorDI {
         public void Initalize(string fname) {
         }
 
-        
-        public void Execute(string line) {
-            //str = Strings.StrConv(line, VbStrConv.Narrow);
-            //Console.WriteLine($"{str}");
 
-           string result = new string(
-                line.Select(c => ('０' <= c && c <= '９'?(char)(c - '0'+'０' ):c)).ToArray()
+        public void Execute(string line) {
+            string result = new string(
+                    line.Select(c => {
+                        if ('０' <= c && c <= '９') {
+                            return (char)(c - '０' + '0');
+                        } else {
+                            return c;
+                        }
+                    }).ToArray()
                 );
             Console.WriteLine(result);
         }
 
         public void Terminate() {
-            
+
 
         }
     }

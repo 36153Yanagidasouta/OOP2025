@@ -1,7 +1,7 @@
 ﻿<Window x:Class="TenkiApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="TenkiApp" Height="500" Width="900" Background="#87CEFA">
+        Title="TenkiApp" Height="500" Width="900" Background="#1E90FF">
     <Grid>
         <!-- 背景の雲用Canvas -->
         <Canvas Name="CloudCanvas" ClipToBounds="True" Panel.ZIndex="0"
@@ -24,7 +24,8 @@
                 <StackPanel Margin="20,0,0,0">
                     <TextBlock Name="CityText" Text="都道府県" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
                     <TextBlock Name="DateText" Text="YYYY/MM/DD HH:mm" FontSize="16" HorizontalAlignment="Center" Margin="0,5,0,10"/>
-                    <Image Name="WeatherIcon" Width="64" Height="64" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                    <Image Name="WeatherIcon" Width=
+"64" Height="64" HorizontalAlignment="Center" Margin="0,0,0,10"/>
                     <TextBlock Name="WeatherDescText" Text="天気" FontSize="18" HorizontalAlignment="Center"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">

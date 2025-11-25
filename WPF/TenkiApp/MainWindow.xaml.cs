@@ -1,202 +1,161 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Media;
 using System.Windows.Threading;
-using System.Windows.Input;
+using NGeo;
 
 namespace TenkiApp {
     public partial class MainWindow : Window {
-        private readonly Random rnd = new Random();
         private DispatcherTimer timer = new DispatcherTimer();
         private double latitude = 35.0;
         private double longitude = 139.0;
-        private Dictionary<string, (double lat, double lon)> prefectures;
+        private static readonly HttpClient httpClient = new HttpClient();
+        private Geocoder geoCoder = new Geocoder(); // Geocoder インスタンスを作成
 
         public MainWindow() {
             InitializeComponent();
-            LoadPrefectures();
-
-            Loaded += (_, _) => {
-                Dispatcher.InvokeAsync(() => {
-                    CreateInitialClouds(10, 30); // 初期雲を均等に配置
-                }, DispatcherPriority.Loaded);
-                StartAutoUpdate();
-            };
-
-            UpdateButton.Click += async (_, _) => await UpdateWeatherAsync();
-            SearchButton.Click += async (_, _) => await SearchPrefectureAsync();
+            Loaded += MainWindow_Loaded;
+            SearchButton.Click += async (_, _) => await SearchLocationAsync();
         }
 
-        #region CSV読み込み
-        private void LoadPrefectures() {
-            string csvPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "prefecture_list.csv");
-            if (!File.Exists(csvPath)) {
-                MessageBox.Show("prefecture_list.csv が見つかりません。");
-                prefectures = new Dictionary<string, (double, double)>();
-                return;
-            }
-
-            prefectures = File.ReadAllLines(csvPath)
-                .Skip(1)
-                .Select(line => line.Split(','))
-                .Where(parts => parts.Length >= 3)
-                .Select(parts => {
-                    bool okLat = double.TryParse(parts[1], out double lat);
-                    bool okLon = double.TryParse(parts[2], out double lon);
-                    return (Name: parts[0].Trim(), Lat: lat, Lon: lon, Valid: okLat && okLon);
-                })
-                .Where(x => x.Valid)
-                .ToDictionary(x => x.Name, x => (x.Lat, x.Lon));
+        private async void MainWindow_Loaded(object sender, RoutedEventArgs e) {
+            StartAutoUpdate();
+            await UpdateWeatherAsync();
         }
-        #endregion
 
         #region 自動更新
         private void StartAutoUpdate() {
-            timer.Interval = TimeSpan.FromMinutes(5);
+            timer.Interval = TimeSpan.FromSeconds(5);
             timer.Tick += async (_, _) => await UpdateWeatherAsync();
             timer.Start();
         }
         #endregion
 
-        #region 雲生成
-
-        // 初期雲：均等に横幅に分布
-        private void CreateInitialClouds(int count, double baseSpeed) {
-            CloudCanvas.Children.Clear();
-            double canvasWidth = CloudCanvas.ActualWidth;
-            double spacing = canvasWidth / count;
-
-            for (int i = 0; i < count; i++) {
-                double x = i * spacing - rnd.Next(0, 50); // 少しランダムずらす
-                double y = rnd.Next(0, (int)(CloudCanvas.ActualHeight * 0.7));
-                CreateCloudAtPosition(x, y, baseSpeed);
-            }
-        }
-
-        // 雲生成メソッド
-        private void CreateCloudAtPosition(double x, double y, double baseSpeed) {
-            // 2種類の画像からランダム選択
-            string[] cloudImages = { "Images/EDK.png", "Images/YNG.png", "Images/adt.jpg" };
-            string cloudImage = cloudImages[rnd.Next(cloudImages.Length)];
-
-            var img = new Image {
-                Source = new BitmapImage(new Uri(cloudImage, UriKind.Relative)),
-                Width = rnd.Next(150, 250),
-                Height = rnd.Next(70, 150),
-                Opacity = 0.4 + rnd.NextDouble() * 0.5
-            };
-
-            CloudCanvas.Children.Add(img);
-            Canvas.SetTop(img, y);
-            Canvas.SetLeft(img, x);
-
-            var transform = new TranslateTransform();
-            img.RenderTransform = transform;
-
-            var anim = new DoubleAnimation {
-                From = x,
-                To = CloudCanvas.ActualWidth + img.Width,
-                Duration = TimeSpan.FromSeconds(baseSpeed + rnd.NextDouble() * 10),
-                RepeatBehavior = RepeatBehavior.Forever
-            };
-
-            transform.BeginAnimation(TranslateTransform.XProperty, anim);
-        }
-
-        // クリックで複数雲をランダムに出現
-        private void CloudCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
-            for (int i = 0; i < 3; i++) // 一度に3個生成
-            {
-                double x = rnd.Next(0, (int)CloudCanvas.ActualWidth);
-                double y = rnd.Next(0, (int)(CloudCanvas.ActualHeight * 0.8));
-                CreateCloudAtPosition(x, y, 30 + rnd.NextDouble() * 10);
-            }
-        }
-
-        #endregion
-
         #region 天気取得
         private async Task UpdateWeatherAsync() {
-            string url = $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true&hourly=relativehumidity_2m,weathercode";
-            using var http = new HttpClient();
+            string url = $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true&hourly=relativehumidity_2m,weathercode&timezone=Asia/Tokyo";
+
             try {
-                var response = await http.GetFromJsonAsync<OpenMeteoResponse>(url);
+                var response = await httpClient.GetFromJsonAsync<OpenMeteoResponse>(url);
+
                 if (response?.current_weather != null) {
-                    Dispatcher.Invoke(() => {
-                        double temp = response.current_weather.temperature;
-                        double wind = response.current_weather.windspeed;
-                        double humidity = 0;
+                    double temp = response.current_weather.temperature;
+                    double wind = response.current_weather.windspeed;
+                    double humidity = 0;
 
-                        if (response.hourly?.relativehumidity_2m != null && response.hourly.relativehumidity_2m.Length > 0)
-                            humidity = response.hourly.relativehumidity_2m[0];
+                    if (response.hourly?.relativehumidity_2m != null && response.hourly.relativehumidity_2m.Length > 0)
+                        humidity = response.hourly.relativehumidity_2m[0];
 
-                        TemperatureText.Text = $"{temp} ℃";
-                        WindText.Text = $"風速: {wind} m/s";
-                        HumidityText.Text = $"湿度: {humidity} %";
-                        DateText.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm");
-                        CityText.Text = CityInput.Text;
+                    TemperatureText.Text = $"{temp:F1} ℃";
+                    WindText.Text = $"{wind:F1} m/s";
+                    HumidityText.Text = $"{humidity:F0} %";
+                    DateText.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    CityText.Text = string.IsNullOrEmpty(CityInput.Text) ? "現在地" : CityInput.Text;
 
-                        string weatherDesc = WeatherCodeToText(response.current_weather.weathercode);
-                        WeatherDescText.Text = weatherDesc;
+                    string weatherEmoji = WeatherCodeToEmoji(response.current_weather.weathercode);
+                    string weatherDesc = WeatherCodeToText(response.current_weather.weathercode);
+                    WeatherEmojiText.Text = weatherEmoji;
+                    WeatherDescText.Text = weatherDesc;
 
-                        string iconUri = WeatherCodeToIcon(response.current_weather.weathercode);
-                        WeatherIcon.Source = new BitmapImage(new Uri(iconUri, UriKind.RelativeOrAbsolute));
-                    });
+                    string iconUri = WeatherCodeToIcon(response.current_weather.weathercode);
+                    WeatherIcon.Source = new BitmapImage(new Uri(iconUri, UriKind.RelativeOrAbsolute));
                 }
             }
+            catch (HttpRequestException ex) {
+                MessageBox.Show($"ネットワークエラー: {ex.Message}", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             catch (Exception ex) {
-                MessageBox.Show($"天気情報取得エラー: {ex.Message}");
+                MessageBox.Show($"天気情報取得エラー: {ex.Message}", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private async Task SearchPrefectureAsync() {
-            string prefecture = CityInput.Text.Trim();
-            if (string.IsNullOrEmpty(prefecture)) return;
+        private async Task SearchLocationAsync() {
+            string input = CityInput.Text.Trim();
 
-            if (prefectures.TryGetValue(prefecture, out var coord)) {
-                latitude = coord.lat;
-                longitude = coord.lon;
+            if (string.IsNullOrEmpty(input)) {
+                MessageBox.Show("住所を入力してください。", "入力エラー", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            // NGeo を使って住所から緯度・経度を取得
+            var geoResults = await geoCoder.GeocodeAsync(input);
+
+            if (geoResults.Any()) {
+                var result = geoResults.First(); // 最初の結果を取得（最も関連性の高いもの）
+                latitude = result.Latitude;
+                longitude = result.Longitude;
                 await UpdateWeatherAsync();
             } else {
-                MessageBox.Show("対応している都道府県名を入力してください。");
+                MessageBox.Show("住所に対応する緯度・経度を取得できませんでした。", "エラー", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+        }
+
+        private string WeatherCodeToEmoji(int code) {
+            return code switch {
+                0 => "☀️",
+                1 => "🌤️",
+                2 => "⛅",
+                3 => "☁️",
+                45 or 48 => "🌫️",
+                51 or 53 or 55 => "🌦️",
+                61 => "🌧️",
+                63 => "🌧️",
+                65 => "⛈️",
+                71 => "🌨️",
+                73 => "❄️",
+                75 => "❄️",
+                77 => "🌨️",
+                80 or 81 or 82 => "🌦️",
+                85 or 86 => "🌨️",
+                95 => "⛈️",
+                96 or 99 => "⛈️",
+                _ => "❓"
+            };
         }
 
         private string WeatherCodeToText(int code) {
             return code switch {
-                0 => "晴れ",
-                1 => "主に晴れ",
-                2 => "曇りがち",
+                0 => "快晴",
+                1 => "晴れ",
+                2 => "一部曇り",
                 3 => "曇り",
+                45 or 48 => "霧",
+                51 or 53 or 55 => "霧雨",
                 61 => "小雨",
                 63 => "雨",
                 65 => "大雨",
                 71 => "小雪",
                 73 => "雪",
                 75 => "大雪",
+                77 => "みぞれ",
+                80 or 81 or 82 => "にわか雨",
+                85 or 86 => "にわか雪",
+                95 => "雷雨",
+                96 or 99 => "雷雨と雹",
                 _ => "不明"
             };
         }
 
         private string WeatherCodeToIcon(int code) {
             return code switch {
-                0 => "Images/sunny.png",
-                1 or 2 or 3 => "Images/cloudy.png",
-                61 or 63 or 65 => "Images/rain.png",
-                71 or 73 or 75 => "Images/snow.png",
+                0 or 1 => "Images/sunny.png",
+                2 or 3 or 45 or 48 => "Images/cloudy.png",
+                51 or 53 or 55 or 61 or 63 or 65 or 80 or 81 or 82 => "Images/rain.png",
+                71 or 73 or 75 or 77 or 85 or 86 => "Images/snow.png",
+                95 or 96 or 99 => "Images/rain.png", // 雷用のアイコンがあれば変更
                 _ => "Images/sunny.png"
             };
         }
         #endregion
+
+        protected override void OnClosed(EventArgs e) {
+            timer?.Stop();
+            base.OnClosed(e);
+        }
     }
 
     #region データクラス

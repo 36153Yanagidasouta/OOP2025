@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using System.Windows.Media.Animation;
 
 namespace TenkiApp {
     public partial class MainWindow : Window {
@@ -272,7 +273,7 @@ namespace TenkiApp {
             TemperatureText.Text = "-- ℃";
             WindText.Text = "-- m/s";
             HumidityText.Text = "-- %";
-            UVIndexText.Text = "測定中"; // 初期値を設定
+            UVIndexText.Text = "測定中";
             ClothingAdviceText.Text = "取得中...";
             WeatherDescText.Text = "取得中";
 
@@ -293,8 +294,6 @@ namespace TenkiApp {
                     // 湿度
                     double humidity = 0;
                     if (response.hourly?.relativehumidity_2m != null && response.hourly.relativehumidity_2m.Length > 0) {
-                        // 湿度データを取得（現在時刻に最も近いデータ）
-                        // Open-Meteoのhourlyデータは通常、リクエストした直近のデータから始まるため、0番目の要素を使用する
                         humidity = response.hourly.relativehumidity_2m[0];
                     }
                     HumidityText.Text = $"{humidity:F0} %";
@@ -302,12 +301,9 @@ namespace TenkiApp {
                     // UV指数
                     double uvIndexMax = 0;
                     if (response.daily?.uv_index_max != null && response.daily.uv_index_max.Length > 0) {
-                        // UV指数データを取得（当日の最大値）
                         uvIndexMax = response.daily.uv_index_max[0];
                     }
-                    // UV指数は小数点第一位まで表示
                     UVIndexText.Text = $"{uvIndexMax:F1}";
-
 
                     // 日時
                     DateText.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm");
@@ -315,11 +311,18 @@ namespace TenkiApp {
                     // 天気コード
                     int weatherCode = response.current_weather.weathercode;
 
-                    // 絵文字（WPFでは非推奨のため削除するか、XAML側で定義したWeatherIconを使用）
-                    // WeatherEmojiText.Text = GetWeatherEmoji(weatherCode);
+                    // 絵文字
+                    WeatherEmojiText.Text = GetWeatherEmoji(weatherCode);
 
                     // 天気説明
                     WeatherDescText.Text = GetWeatherDescription(weatherCode);
+
+                    // 服装アドバイス
+                    string clothingAdvice = GetClothingAdvice(temp, weatherCode, uvIndexMax);
+                    ClothingAdviceText.Text = clothingAdvice;
+
+                    // スクロールテキストを更新
+                    UpdateScrollingText(temp, weatherCode, uvIndexMax, clothingAdvice);
 
                     // アイコン
                     string iconPath = GetWeatherIconPath(weatherCode);
@@ -344,6 +347,84 @@ namespace TenkiApp {
                 ShowError($"天気情報取得エラー: {ex.Message}");
             }
         }
+
+        // 服装アドバイス取得
+        private string GetClothingAdvice(double temp, int weatherCode, double uvIndex) {
+            string advice = "";
+
+            // 気温による服装アドバイス
+            if (temp >= 30) {
+                advice = "🌡️ 猛暑日：半袖・通気性の良い服装";
+            } else if (temp >= 25) {
+                advice = "☀️ 夏日：半袖・薄着で快適";
+            } else if (temp >= 20) {
+                advice = "🌤️ 快適：長袖シャツや薄手の上着";
+            } else if (temp >= 15) {
+                advice = "🍂 涼しい：長袖＋カーディガン";
+            } else if (temp >= 10) {
+                advice = "🧥 肌寒い：ジャケットや厚手の服";
+            } else if (temp >= 5) {
+                advice = "🧤 寒い：コート・マフラー推奨";
+            } else {
+                advice = "❄️ 極寒：厚手のコート・防寒具必須";
+            }
+
+            // 雨の場合
+            if (weatherCode >= 51 && weatherCode <= 82) {
+                advice += " | ☂️ 傘が必要です";
+            }
+
+            // 雪の場合
+            if (weatherCode >= 71 && weatherCode <= 86) {
+                advice += " | ⛄ 防寒・防水対策を";
+            }
+
+            // UV指数が高い場合
+            if (uvIndex >= 8) {
+                advice += " | ⚠️ UV強：日焼け止め必須";
+            } else if (uvIndex >= 6) {
+                advice += " | 🕶️ UV注意：帽子・サングラス推奨";
+            }
+
+            return advice;
+        }
+
+        // スクロールテキストを更新
+        private void UpdateScrollingText(double temp, int weatherCode, double uvIndex, string advice) {
+            string weather = GetWeatherDescription(weatherCode);
+            string scrollText = $"― 現在気温 {temp:F1}℃ | {weather} | {advice} ―";
+
+            ScrollingText.Text = scrollText;
+
+            // アニメーションを再開
+            var storyboard = (Storyboard)FindResource("ScrollingStoryboard");
+            storyboard.Stop();
+            storyboard.Begin();
+        }
+
+        private string GetWeatherEmoji(int code) {
+            return code switch {
+                0 => "☀️",
+                1 => "🌤️",
+                2 => "⛅",
+                3 => "☁️",
+                45 or 48 => "🌫️",
+                51 or 53 or 55 => "🌦️",
+                61 => "🌧️",
+                63 => "🌧️",
+                65 => "⛈️",
+                71 => "🌨️",
+                73 => "❄️",
+                75 => "❄️",
+                77 => "🌨️",
+                80 or 81 or 82 => "🌦️",
+                85 or 86 => "🌨️",
+                95 => "⛈️",
+                96 or 99 => "⛈️",
+                _ => "❓"
+            };
+        }
+
 
         private string GetWeatherDescription(int code) {
             return code switch {
@@ -427,7 +508,7 @@ namespace TenkiApp {
     public class OpenMeteoResponse {
         public CurrentWeather current_weather { get; set; }
         public HourlyData hourly { get; set; }
-        public DailyData daily { get; set; } // DailyDataを追加
+        public DailyData daily { get; set; }
     }
 
     public class CurrentWeather {
@@ -441,9 +522,8 @@ namespace TenkiApp {
         public double[] relativehumidity_2m { get; set; }
     }
 
-    // Dailyデータクラスを新しく追加
     public class DailyData {
-        public double[] uv_index_max { get; set; } // UV指数
+        public double[] uv_index_max { get; set; }
     }
 
     // Open-Meteo Geocoding API

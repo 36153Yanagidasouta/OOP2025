@@ -69,7 +69,7 @@
             <DoubleAnimation
                 Storyboard.TargetName="ScrollingText"
                 Storyboard.TargetProperty="(Canvas.Left)"
-                From="-400" To="950" Duration="0:0:10" />
+                From="950" To="-400" Duration="0:0:10" />
         </Storyboard>
 
     </Window.Resources>
@@ -121,7 +121,7 @@
                         Padding="8"
                         BorderThickness="2"
                         BorderBrush="#FFFFFF">
-                    <TextBlock Text="◆ 天気予報データベース ◆" 
+                    <TextBlock Text="◆ 天気予報◆" 
                                Foreground="#FFFFFF"
                                FontFamily="MS UI Gothic, Courier New"
                                FontSize="18"
@@ -177,8 +177,7 @@
                                             Content="[検索]"
                                             Style="{StaticResource RetroButton}"
                                             Width="100"
-                                            Height="32"
-                                            Click="SearchButton_Click"/>
+                                            Height="32"/>
                                 </Grid>
                             </StackPanel>
                         </Border>
@@ -201,6 +200,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
+                                <!-- 天気アイコン部 -->
                                 <Border Grid.Column="0"
                                         Background="#C0C0C0"
                                         BorderThickness="3"
@@ -209,26 +209,37 @@
                                         Height="180"
                                         VerticalAlignment="Top"
                                         Padding="10">
-                                    <StackPanel VerticalAlignment="Center">
+                                    <StackPanel VerticalAlignment="Center" Height="303">
                                         <Image Name="WeatherIcon"
-                                               Width="100" 
-                                               Height="100"
+                                               Width="80" 
+                                               Height="80"
                                                HorizontalAlignment="Center"
                                                Margin="0,0,0,5"/>
+
+                                        <!-- 天気絵文字 -->
+                                        <TextBlock Name="WeatherEmojiText"
+                                                   Text="☀️"
+                                                   FontSize="60"
+                                                   HorizontalAlignment="Center"
+                                                   TextAlignment="Center"
+                                                   Margin="0,5,0,0"/>
+
+                                        <!-- 天気説明文字 -->
                                         <TextBlock Name="WeatherDescText"
                                                    Text="天気"
                                                    FontFamily="MS UI Gothic"
-                                                   FontSize="40"
+                                                   FontSize="16"
                                                    FontWeight="Bold"
                                                    HorizontalAlignment="Center"
                                                    Foreground="#000000"
                                                    TextAlignment="Center"
-                                                   TextWrapping="Wrap"
-                                                   Margin="0,10,0,60"/>
+                                                   TextWrapping="Wrap"/>
                                     </StackPanel>
                                 </Border>
 
+                                <!-- 情報表示部 -->
                                 <StackPanel Grid.Column="2" VerticalAlignment="Top">
+                                    <!-- ヘッダー -->
                                     <Border Background="#008080" 
                                             Padding="8"
                                             BorderThickness="2"
@@ -251,11 +262,13 @@
                                         </StackPanel>
                                     </Border>
 
+                                    <!-- データ表示 -->
                                     <Border Background="#C0C0C0"
                                             BorderThickness="2"
                                             BorderBrush="#808080"
                                             Padding="20">
                                         <StackPanel>
+                                            <!-- 気温とUV指数 -->
                                             <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="[ 気温 ]"
@@ -274,7 +287,8 @@
                                                                FontSize="22"
                                                                FontWeight="Bold"
                                                                VerticalAlignment="Center"
-                                                               Margin="10,0,20,0" Width="100"/>
+                                                               Margin="10,0,20,0" 
+                                                               Width="100"/>
                                                 </StackPanel>
 
                                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -296,6 +310,7 @@
                                                 </StackPanel>
                                             </StackPanel>
 
+                                            <!-- 湿度 -->
                                             <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
                                                 <TextBlock Text="[ 湿度 ]"
                                                            Foreground="#FFFFFF"
@@ -306,17 +321,17 @@
                                                            FontWeight="Bold"
                                                            Width="80"
                                                            VerticalAlignment="Center"/>
-                                                <TextBlock x:Name="WeatherEmojiText" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                 <TextBlock Name="HumidityText"
                                                            Text="-- %"
                                                            Foreground="#0000FF"
+                                                           FontFamily="Courier New"
                                                            FontSize="22"
                                                            FontWeight="Bold"
                                                            VerticalAlignment="Center"
-                                                           Margin="10,0,0,0"
-                                                           FontFamily="Segoe UI Emoji, Arial" Width="100"/>
+                                                           Margin="10,0,0,0"/>
                                             </StackPanel>
 
+                                            <!-- 風速 -->
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="[ 風速 ]"
                                                            Foreground="#FFFFFF"
@@ -325,7 +340,7 @@
                                                            Padding="5,0"
                                                            FontSize="16"
                                                            FontWeight="Bold"
-                                                           Width="120"
+                                                           Width="80"
                                                            VerticalAlignment="Center"/>
                                                 <TextBlock Name="WindText"
                                                            Text="-- m/s"
@@ -337,6 +352,7 @@
                                                            Margin="10,0,0,0"/>
                                             </StackPanel>
 
+                                            <!-- 服装アドバイス -->
                                             <Border Background="#E0E0E0"
                                                     BorderThickness="1"
                                                     BorderBrush="#008080"
@@ -346,7 +362,7 @@
                                                     <TextBlock Text="[ 服装アドバイス ]"
                                                                Foreground="#000080"
                                                                FontFamily="MS UI Gothic"
-                                                               FontSize="18"
+                                                               FontSize="14"
                                                                FontWeight="Bold"
                                                                Margin="0,0,0,5"/>
 
@@ -354,7 +370,7 @@
                                                                Text="取得中..."
                                                                Foreground="#000000"
                                                                FontFamily="MS UI Gothic"
-                                                               FontSize="18"
+                                                               FontSize="13"
                                                                TextWrapping="Wrap"
                                                                Padding="5"/>
                                                 </StackPanel>
@@ -367,6 +383,7 @@
                     </Grid>
                 </Border>
 
+                <!-- 下部ステータス -->
                 <Border Grid.Row="4" 
                         Background="#000000"
                         BorderThickness="2"
@@ -382,6 +399,7 @@
             </Grid>
         </Border>
 
+        <!-- ブラウン管の歪み効果 -->
         <Border Panel.ZIndex="15" IsHitTestVisible="False">
             <Border.Background>
                 <RadialGradientBrush Center="0.5,0.5" RadiusX="0.8" RadiusY="0.8">
@@ -391,33 +409,22 @@
             </Border.Background>
         </Border>
 
-        <Canvas>
+        <!-- スクロールテキスト -->
+        <Canvas Panel.ZIndex="20">
             <TextBlock x:Name="ScrollingText" 
                        FontSize="24" 
                        FontFamily="Courier New" 
                        Foreground="Yellow"
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center" 
                        Text="― 起動中... 天気情報を取得しています。しばらくお待ちください。 ―"
                        Canvas.Left="-400"
-                       Canvas.Top="10">
-            </TextBlock>
+                       Canvas.Top="10"/>
 
             <Canvas.Triggers>
-                <EventTrigger RoutedEvent="Window.Loaded">
+                <EventTrigger RoutedEvent="Canvas.Loaded">
                     <BeginStoryboard Storyboard="{StaticResource ScrollingStoryboard}" />
                 </EventTrigger>
             </Canvas.Triggers>
         </Canvas>
-
-        <Border Background="#00000000"
-                BorderBrush="#00000000" 
-                BorderThickness="2" 
-                Padding="5" 
-                VerticalAlignment="Top"
-                HorizontalAlignment="Center"
-                Height="30">
-        </Border>
 
     </Grid>
 </Window>
